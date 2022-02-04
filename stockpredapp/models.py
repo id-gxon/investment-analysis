@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Test(models.Model): # db 테스트용
     created_date = models.DateTimeField(null=True)
     stock_code = models.CharField(max_length=200)
@@ -9,6 +10,7 @@ class Test(models.Model): # db 테스트용
 
     def __str__(self):
         return self.stock_name
+
 
 class Code_name(models.Model): # 크롤링한 종목코드와 종목이름
     created_date = models.DateTimeField(null=True)
@@ -23,7 +25,6 @@ class Code_name(models.Model): # 크롤링한 종목코드와 종목이름
     homepage = models.CharField(max_length=200, null=True, default='')  # 홈페이지
     region = models.CharField(max_length=200, null=True, default='')  # 지역
 
-
     def __str__(self):
         return self.stock_name
 
@@ -31,6 +32,7 @@ class Code_name(models.Model): # 크롤링한 종목코드와 종목이름
 # for i in range(len(stock_code)): # python shell에서 크로링 후 반복문을 통해 DB저장
 #     r = Code_name(created_date=timezone.now(), stock_code=stock_code.iloc[i,1], stock_name=stock_code.iloc[i,0])
 #     r.save()
+
 
 class Rnn_data(models.Model): # 사용자로부터 받은 데이터
     created_date = models.DateTimeField(null=True)
@@ -40,6 +42,7 @@ class Rnn_data(models.Model): # 사용자로부터 받은 데이터
 
     start = models.DateField() # 조회시작일
     end = models.DateField() # 조회종료일
+
 
 class Rnn_result(models.Model): # 순환신경망 분석결과 저장
     created_date = models.DateTimeField(null=True)

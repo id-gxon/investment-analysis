@@ -16,7 +16,7 @@
         <div class="col-1">
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ discussion.voter.count }}</div>
             <a href="#" data-uri="{% url 'board:vote_discussion' discussion.id  %}"
-               class="recommend btn btn-sm btn-secondary btn-block my-1">추천하기</a>
+               class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
         </div>
         <div class="col-11">
             <div class="card">
@@ -59,7 +59,7 @@
         <div class="col-1">
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{answer.voter.count}}</div>
             <a href="#" data-uri="{% url 'board:vote_answer' answer.id  %}"
-            class="recommend btn btn-sm btn-secondary btn-block my-1">추천하기</a>
+            class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
         </div>
         <div class="col-11">
             <div class="card my-3">

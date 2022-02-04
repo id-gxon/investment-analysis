@@ -18,7 +18,7 @@ def index(request):
     elif so == 'popular':
         discussion_list = Discussion.objects.annotate(num_answer=Count('answer')).order_by('-num_answer', '-create_date')
     elif so == 'view':
-        discussion_list = Discussion.objects.annotate(num_view=Count('view')).order_by('-num_view', '-create_date')
+        discussion_list = Discussion.objects.annotate(num_view=Count('hitting')).order_by('-num_hitting', '-create_date')
     else:  # recent
         discussion_list = Discussion.objects.order_by('-create_date')
 
