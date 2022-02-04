@@ -1,0 +1,22 @@
+<h1>RNN(순환신경망) {{ stock.stock_name }} 분석결과</h1>
+
+<h3>
+    종목코드 : {{ stock.stock_code }}<br>
+    상장 구분 : {{ stock.market }} <br>
+    사업 분야 : {{ stock.sector }} <br>
+    세부 분야 : {{ stock.industry }} <br>
+    상장일 : {{ stock.listing_date }} <br>
+    {{ stock.settle_month }} <br>
+    대표 : {{ stock.representative }} <br>
+    홈페이지 : {{ stock.homepage }} <br>
+    지역 : {{ stock.region }} <br>
+</h3>
+
+<div class="table">
+    D+7 예측 : {{ result }} <br>
+    예측 최대값 : {{ result_max }} <br>
+    예측 최소값 : {{ result_min }} <br>
+    train_RMSE : {{ train_RMSE }} <br>
+    test_RMSE : {{ test_RMSE }} <br>
+    분석에 걸린 시간 : {{ runtime }}
+</div>

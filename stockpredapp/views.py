@@ -9,6 +9,11 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
+from keras.models import Sequential
+from keras.layers import SimpleRNN, Dense
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
 import math
 import numpy as np
 import FinanceDataReader as fdr
@@ -29,6 +34,8 @@ def index(request):
 
     # 페이징 처리
     paginator = Paginator(stock_list, 10)
+
+    paginator = Paginator(stock_list, 4000)
     page_obj = paginator.get_page(page)
 
     context = {'stock_list': page_obj}  # {'key' : value}
