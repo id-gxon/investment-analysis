@@ -23,16 +23,34 @@ class Code_name(models.Model): # 크롤링한 종목코드와 종목이름
     settle_month = models.CharField(max_length=200, null=True, default='')  #
     representative = models.CharField(max_length=200, null=True, default='')  # 대표
     homepage = models.CharField(max_length=200, null=True, default='')  # 홈페이지
-    region = models.CharField(max_length=200, null=True, default=''
-                              )  # 지역
+    region = models.CharField(max_length=200, null=True, default='')  # 지역
 
     def __str__(self):
         return self.stock_name
 
 
-# for i in range(len(stock_code)): # python shell에서 크로링 후 반복문을 통해 DB저장
-#     r = Code_name(created_date=timezone.now(), stock_code=stock_code.iloc[i,1], stock_name=stock_code.iloc[i,0])
-#     r.save()
+# from stockpredapp.models import Code_name
+# from django.utils import timezone
+# import FinanceDataReader as fdr
+#
+# df_krx = fdr.StockListing("KRX")
+#
+# for i in range(len(df_krx)): # stock_data 크롤링
+#     s = Code_name(
+#     created_date=timezone.now(),
+#     stock_code=df_krx.iloc[i, 0],
+#     market=df_krx.iloc[i, 1],
+#     stock_name=df_krx.iloc[i, 2],
+#     sector=df_krx.iloc[i, 3],
+#     industry=df_krx.iloc[i, 4],
+#     listing_date=df_krx.iloc[i, 5],
+#     settle_month=df_krx.iloc[i, 6],
+#     representative=df_krx.iloc[i, 7],
+#     homepage=df_krx.iloc[i, 8],
+#     region=df_krx.iloc[i, 9])
+#     s.save()
+
+
 
 
 class Rnn_data(models.Model): # 사용자로부터 받은 데이터
