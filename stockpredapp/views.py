@@ -3,18 +3,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Code_name
-
 from keras.models import Sequential
 from keras.layers import SimpleRNN, Dense
-
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
+
 import math
 import numpy as np
 import FinanceDataReader as fdr
 import matplotlib.pyplot as plt
-
 import time
 
 import pandas_datareader as pdr # 주식데이터 크롤링
@@ -30,7 +28,7 @@ def index(request):
     stock_list = Code_name.objects.order_by('-created_date')
 
     # 페이징 처리
-    paginator = Paginator(stock_list, 4000)
+    paginator = Paginator(stock_list, 10)
     page_obj = paginator.get_page(page)
 
     context = {'stock_list': page_obj}  # {'key' : value}
