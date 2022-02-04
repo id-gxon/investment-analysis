@@ -10,6 +10,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    'stockpredapp.apps.StockpredappConfig',
     'common.apps.CommonConfig',
     'board.apps.BoardConfig',
     'django.contrib.admin',
