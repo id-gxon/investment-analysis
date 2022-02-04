@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 
 
 class Discussion(models.Model):
-    # author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_discussion')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_discussion')
     subject = models.CharField(max_length=200)
     content = models.TextField()
     image = models.ImageField(null=True, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(null=True, blank=True)
-    voter = models.ManyToManyField(User)
+    voter = models.ManyToManyField(User, related_name="voter_discussion")
 
     def __str__(self):
         return self.subject
@@ -20,10 +20,10 @@ class Discussion(models.Model):
 
 
 class Answer(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_answer')
     discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
     content = models.TextField()
     image = models.ImageField(null=True, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(null=True, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_answer')
     voter = models.ManyToManyField(User, related_name='voter_answer')
