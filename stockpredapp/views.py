@@ -35,7 +35,6 @@ def index(request):
     # 페이징 처리
     paginator = Paginator(stock_list, 10)
 
-    paginator = Paginator(stock_list, 4000)
     page_obj = paginator.get_page(page)
 
     context = {'stock_list': page_obj}  # {'key' : value}
