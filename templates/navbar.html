@@ -14,10 +14,10 @@
                 {% endif %}
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="stock_list.html">종목 분석</a>
+                <a class="nav-link" href="{% url 'stockpredapp:s_index' %}">종목 분석</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="discussion_list.html">토론방</a>
+                <a class="nav-link" href="{% url 'board:index' %}">토론방</a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="#">내 정보 확인</a>
