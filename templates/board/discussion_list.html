@@ -42,11 +42,11 @@
             </td>
             <td class="text-left">
                 <a href="{% url 'board:detail' discussion.id %}">{{ discussion.subject }}</a>
+                {% if discussion.answer_set.count > 0 %}
+                <span class="text-danger small ml-2">{{ discussion.answer_set.count }}</span>
+                {% endif %}
             </td>
-            {% if discussion.answer_set.count > 0 %}
-            <span class="text-danger small ml-2">{{ discussion.answer_set.count }}</span>
-            {% endif %}
-            <td>{{ question.author.username }}</td>
+            <td>{{ discussion.author.username }}</td>
             <td>{{ discussion.create_date }}</td>
         </tr>
         {% endfor %}

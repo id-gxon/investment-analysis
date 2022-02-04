@@ -1,0 +1,10 @@
+{% if stock_list %}
+    <ul>
+    {% for stock in stock_list %}
+        <li><a href="{% url 'result' stock.id %}">{{ stock.stock_name }}</a></li>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>종목이 없습니다.</p>
+{% endif %}
