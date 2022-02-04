@@ -23,7 +23,8 @@ class Code_name(models.Model): # 크롤링한 종목코드와 종목이름
     settle_month = models.CharField(max_length=200, null=True, default='')  #
     representative = models.CharField(max_length=200, null=True, default='')  # 대표
     homepage = models.CharField(max_length=200, null=True, default='')  # 홈페이지
-    region = models.CharField(max_length=200, null=True, default='')  # 지역
+    region = models.CharField(max_length=200, null=True, default=''
+                              )  # 지역
 
     def __str__(self):
         return self.stock_name
