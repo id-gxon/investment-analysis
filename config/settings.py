@@ -95,3 +95,6 @@ LOGIN_REDIRECT_URL = '/'
 
 # 로그아웃시 이동하는 URL
 LOGOUT_REDIRECT_URL = '/'
+
+#커스텀 유저 모델
+# AUTH_USER_MODEL='common.User'

@@ -6,12 +6,11 @@
             <h4>로그인</h4>
         </div>
         <div class="col-8 text-right">
-            <span>계정이 없으세요? <a href="{% url 'common:signup' %}">계정 생성하기</a></span>
+            <span>계정이 없으세요? <a href="{% url 'common:signup' %}">Join us</a></span>
         </div>
     </div>
     <form method="post" class="post-form" action="{% url 'common:login' %}">
         {% csrf_token %}
-        <input type="hidden" name="next" value="{{ next }}">
         {% include "form_errors.html" %}
         <div class="form-group">
             <label for="username">ID</label>
