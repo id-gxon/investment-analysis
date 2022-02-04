@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Discussion(models.Model):
-    # author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_discussion')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_discussion')
     subject = models.CharField(max_length=200)
     content = models.TextField()
     image = models.ImageField(null=True, blank=True)
