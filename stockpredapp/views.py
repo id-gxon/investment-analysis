@@ -24,7 +24,8 @@ import pandas_datareader as pdr # 주식데이터 크롤링
 
 epochs = 10
 
-def index(request):
+
+def s_index(request):
     """
     종목 출력
     """
@@ -48,6 +49,7 @@ def index(request):
 #     stock = get_object_or_404(Code_name, pk=stock_id)
 #     context = {'stock': stock}
 #     return render(request, 'stockpredapp/stock_result.html', context)
+
 
 def result(request, stock_id):
     '''

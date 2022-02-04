@@ -5,6 +5,6 @@ from . import views
 app_name = 'stockpredapp'
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.s_index, name='s_index'),
     path('<int:stock_id>/', views.result, name='result'),
 ]
