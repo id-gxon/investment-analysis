@@ -3,6 +3,75 @@
 <!--<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">-->
 {% block content %}
 {% load static %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<figure class="highcharts-figure">
+      <div id="container" style="width:90%; height:700px" class="container my-3"></div>
+      <p class="highcharts-description">
+
+      </p>
+</figure>
+
+    <!-- 5. <script src="{% static 'chart/js/line.js' %}" ></script> -->
+    <!-- 6. script -->
+<script>
+    Highcharts.chart('container', {
+        chart: {
+          type: 'spline'
+        },
+        title: {
+          text: '{{ stock }} RNN 분석결과'
+        },
+        subtitle: {
+          text: '순환 신경망을 통한 분석 결과'
+        },
+        xAxis: {
+
+        },
+        yAxis: {
+          title: {
+            text: '가격'
+          },
+          labels: {
+            formatter: function () {
+              return this.value + '원';
+            }
+          }
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              radius: 4,
+              lineColor: '#666666',
+              lineWidth: 1
+            }
+          }
+        },
+        series: [{
+          name: 'True',
+          marker: {
+            symbol: 'square'
+          },
+          data: {{ dataset }}
+
+        }
+<!--        , {-->
+<!--          name: 'London',-->
+<!--          marker: {-->
+<!--            symbol: 'diamond'-->
+<!--          },-->
+<!--          data: [10,9,8,7,6,5,4,3,2]-->
+<!--        }-->
+        ]
+      });
+</script>
+
 <div class="container my-3">
     <table class="table">
         <thead>
@@ -62,6 +131,10 @@
         </tbody>
     </table>
 </div>
+</body>
+
+
+
 
 {% endblock %}
 

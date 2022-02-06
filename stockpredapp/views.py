@@ -17,12 +17,12 @@ from sklearn.model_selection import train_test_split
 import math
 import numpy as np
 import FinanceDataReader as fdr
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt, mpld3
 import time
-
+import pandas as pd
 import pandas_datareader as pdr # 주식데이터 크롤링
 
-epochs = 100
+epochs = 10
 
 
 def s_index(request):
@@ -73,6 +73,10 @@ def result(request, stock_id):
     train_RMSE = Result[10]
     test_RMSE = Result[11]
     runtime = Result[12]
+    dataset = Result[13]
+    trainPredictPlot = Result[14]
+    testPredictPlot = Result[15]
+    predPlot = Result[16]
 
     context = {'stock':stock,
                'result': result,
@@ -87,7 +91,12 @@ def result(request, stock_id):
                'result_min':result_min,
                'train_RMSE':train_RMSE,
                'test_RMSE':test_RMSE,
-               'runtime':runtime
+               'runtime':runtime,
+               'dataset':dataset,
+               'trainPredictPlot':trainPredictPlot,
+               'testPredictPlot':testPredictPlot,
+               'predPlot': predPlot
+
                }
 
     return render(request, 'stockpredapp/stock_result.html', context)
@@ -158,17 +167,30 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     trainPredictPlot = trainPredictPlot.reshape(trainPredictPlot.shape[0], 1)
     trainPredictPlot[:, :] = np.nan
     trainPredictPlot[look_back:len(TrainPredict) + look_back] = TrainPredict
+    trainPredictPlot = trainPredictPlot.reshape(len(trainPredictPlot))
+    trainPredictPlot = np.round(trainPredictPlot, 2)
+    trainPredictPlot = list(trainPredictPlot)
+
+
 
     testPredictPlot = np.zeros(len(dataset) + 7)
     testPredictPlot = testPredictPlot.reshape(testPredictPlot.shape[0], 1)
     testPredictPlot[:, :] = np.nan
     testPredictPlot[len(TrainPredict) + (look_back) * 2: len(dataset), :] = TestPredict
 
+    testPredictPlot = testPredictPlot.reshape(len(testPredictPlot))
+    testPredictPlot = list(testPredictPlot)
+
+
+
     predPlot = np.zeros(len(dataset) + 7)
     predPlot = predPlot.reshape(predPlot.shape[0], 1)
     predPlot[:, :] = np.nan
     predPlot[-7:] = x_pred[6].reshape(x_pred.shape[0], 1)
     predPlot = scaler.inverse_transform(predPlot)  # Min-Max변환된 값을 원래대로 되돌림
+
+    dataset = dataset.reshape(len(dataset))
+    dataset = list(dataset)
 
     # plt.figure(figsize=(20, 10))
     # plt.plot(dataset, label="true", c='green')
@@ -192,7 +214,6 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     e = time.time()
     runtime = e - s
     runtime = round(runtime)
-    return result, result_d1, result_d2, result_d3, result_d4, result_d5, result_d6, result_d7, result_max, result_min, train_RMSE, test_RMSE, runtime
-
+    return result, result_d1, result_d2, result_d3, result_d4, result_d5, result_d6, result_d7, result_max, result_min, train_RMSE, test_RMSE, runtime, dataset, trainPredictPlot, testPredictPlot, predPlot
 
 
