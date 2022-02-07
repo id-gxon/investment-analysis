@@ -5,7 +5,7 @@
         <div class="col-4">
             <h4>로그인</h4>
         </div>
-        <div class="col-8 text-right">
+        <div class="col-9 text-right">
             <span>계정이 없으세요? <a href="{% url 'common:signup' %}">Join us</a></span>
         </div>
     </div>
@@ -14,7 +14,7 @@
         {% include "form_errors.html" %}
         <div class="form-group">
             <label for="username" class="form-label mt-4">ID</label>
-            <input type="text" class="form-control" name="username" id="username"
+            <input type="text" class="form-control" name="username" id="username" placeholder="Username"
                    value="{{ form.username.value|default_if_none:'' }}">
         </div>
         <div class="form-group">

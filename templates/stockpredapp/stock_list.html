@@ -7,7 +7,7 @@
 <div class="container my-3">
     <table class="table">
         <thead>
-        <tr class="thead-dark">
+        <tr class="table-secondary">
             <th>종목명</th>
             <th>종목코드</th>
             <th>사업분야</th>
@@ -32,8 +32,8 @@
         </tr>
         {% endfor %}
         {% else %}
-        <tr>
-            <td colspan="3">종목이 없습니다.</td>
+        <tr class ="text-center">
+            <td colspan="7">종목이 없습니다.</td>
         </tr>
         {% endif %}
         </tbody>
