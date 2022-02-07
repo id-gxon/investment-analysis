@@ -12,6 +12,14 @@
     </div>
     {% endif %}
     <h2 class="border-bottom py-2">{{ discussion.subject }}</h2>
+
+    <div class="container">
+        {% if discussion.image %}
+            <img src="{{discussion.image.url}}">
+            <br><br>
+        {% endif %}
+    </div>
+
     <div class="row my-3">
         <div class="col-1">
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ discussion.voter.count }}</div>

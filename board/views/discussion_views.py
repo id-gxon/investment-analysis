@@ -18,6 +18,7 @@ def discussion_create(request):
             discussion = form.save(commit=False)
             discussion.author = request.user
             discussion.create_date = timezone.now()
+            discussion.image = request.FILES['image']
             discussion.save()
             return redirect('board:index')
     else:
