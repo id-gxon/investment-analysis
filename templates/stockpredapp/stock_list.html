@@ -8,16 +8,18 @@
         <div class="col-4 input-group">
             <input type="text" class="form-control kw1" value="{{ kw1|default_if_none:'' }}">
             <div class="input-group-append">
-                <button class="btn btn-secondary my-2 my-sm-0" type="button" id="btn_search1">Search</button>
+                <button class="btn btn-secondary my-2 my-sm-0" type="button" id="btn_search1">종목 검색</button>
             </div>
         </div>
     </div>
+    <p>종목 코드로 검색하는게 더 빠릅니다.</p>
     <table class="table">
         <thead>
         <tr class="text-center table-secondary">
             <th>번호</th>
             <th>종목명</th>
             <th>종목코드</th>
+            <th>상장구분</th>
             <th>사업분야</th>
             <th>홈페이지</th>
         </tr>
@@ -36,6 +38,7 @@
             <td>
                 <a href="{% url 'stockpredapp:result' stock.id %}">{{ stock.stock_code }}</a>
             </td>
+            <td>{{ stock.market }}</td>
             <td>{{ stock.sector }} / {{ stock.industry}}</td>
             <td>
                 <a href="{{ stock.homepage }}">{{ stock.homepage }}</a>

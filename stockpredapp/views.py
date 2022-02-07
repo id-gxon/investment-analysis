@@ -9,6 +9,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from django.db.models import Q
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 import json
 import math
 import numpy as np
@@ -16,7 +18,7 @@ import FinanceDataReader as fdr
 import time
 
 
-epochs = 10 # 학습반복수
+epochs = 100 # 학습반복수
 
 
 def s_index(request):
@@ -29,8 +31,9 @@ def s_index(request):
     stock_list = Code_name.objects.order_by('created_date')
     if kw1:
         stock_list = stock_list.filter(
-            Q(stock_name__icontains=kw1) # 종목검색
-
+            Q(stock_name__icontains=kw1) | # 종목이름검색
+            Q(stock_code__icontains=kw1) |# 종목코드검색
+            Q(market__icontains=kw1)
         ).distinct()
 
     # 페이징 처리
@@ -58,8 +61,12 @@ def result(request, stock_id):
 
     stock = Code_name.objects.get(id=stock_id)
     name = Code_name.objects.get(id=stock_id).stock_code
-    # result = rnn(stock.stock_code+'KQ', start='2021-07-01', end='2022-01-01')
-    Result = rnn(name, start='2021-01-01', end='2022-02-03')
+    end = datetime.today()
+    start = end - relativedelta(months=12)
+    start = start.strftime("%Y-%m-%d")
+    end = end.strftime("%Y-%m-%d")
+
+    Result = rnn(name, start=start, end=end)
     result = Result[0]  # rnn 함수결과를 변수에 할당
     result_d1 = Result[1]
     result_d2 = Result[2]
@@ -97,7 +104,9 @@ def result(request, stock_id):
                'trainPredictPlot':trainPredictPlot,
                'testPredictPlot':testPredictPlot,
                'predPlot': predPlot,
-               'date' : date
+               'date' : date,
+               'start' : start,
+               'end' : end
                 }
     return render(request, 'stockpredapp/stock_result.html', context)
 
@@ -109,7 +118,7 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     date = list(date) # 리스트 변환
     for i in range(len(date)): # datetime -> str 변환
         date[i] = date[i].strftime("%Y-%m-%d")
-    date = json.dumps(date) # json형태로 변환
+    # date = json.dumps(date) # json형태로 변환
 
     dataset = df['Close'].values  # 종가 데이터 추출
     dataset = dataset.reshape(dataset.shape[0], 1)  # 1차원배열을 2차원으로 변경
