@@ -107,14 +107,14 @@
 {% block script %}
 <script type='text/javascript'>
 $(document).ready(function(){
-    $(".page-link").on('click', function() {
+    $(".page-link").on('click', function() {    // 이전버튼(page-link) 클릭 시 아래 스크립트 실행
         $("#page").val($(this).data("page"));
         $("#searchForm").submit();
     });
 
-    $("#btn_search").on('click', function() {
+    $("#btn_search").on('click', function() {   // 검색버튼 클릭 시 아래 스크립트 실행
         $("#kw").val($(".kw").val());
-        $("#page").val(1);
+        $("#page").val(1); // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
         $("#searchForm").submit();
     });
 
