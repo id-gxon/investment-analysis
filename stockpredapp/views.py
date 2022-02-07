@@ -14,6 +14,7 @@ from keras.layers import SimpleRNN, Dense
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
+import json
 import math
 import numpy as np
 import FinanceDataReader as fdr
@@ -76,6 +77,7 @@ def result(request, stock_id):
     trainPredictPlot = Result[14]
     testPredictPlot = Result[15]
     predPlot = Result[16]
+    date = Result[17]
 
     context = {'stock':stock,
                'result': result,
@@ -94,7 +96,8 @@ def result(request, stock_id):
                'dataset':dataset,
                'trainPredictPlot':trainPredictPlot,
                'testPredictPlot':testPredictPlot,
-               'predPlot': predPlot
+               'predPlot': predPlot,
+               'date' : date
 
                }
 
@@ -104,7 +107,13 @@ def result(request, stock_id):
 def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     s = time.time()
     # df = pdr.get_data_yahoo(code, start=start, end=end).reset_index()  # 주식 데이터 크롤링
-    df = fdr.DataReader(symbol=code, start=start, end=end)
+    df = fdr.DataReader(symbol=code, start=start, end=end).reset_index()
+    date = df['Date']
+    date = list(date)
+    for i in range(len(date)):
+        date[i] = date[i].strftime("%Y-%m-%d")
+    date = json.dumps(date)
+
     dataset = df['Close'].values  # 종가 데이터 추출
     dataset = dataset.reshape(dataset.shape[0], 1)  # 1차원배열을 2차원으로 변경
     dataset = dataset.astype('float32')  # int -> float변환
@@ -169,24 +178,24 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     trainPredictPlot = trainPredictPlot.reshape(len(trainPredictPlot))
     trainPredictPlot = np.round(trainPredictPlot, 2)
     trainPredictPlot = list(trainPredictPlot)
-
-
+    trainPredictPlot = json.dumps(trainPredictPlot)
 
     testPredictPlot = np.zeros(len(dataset) + 7)
     testPredictPlot = testPredictPlot.reshape(testPredictPlot.shape[0], 1)
     testPredictPlot[:, :] = np.nan
     testPredictPlot[len(TrainPredict) + (look_back) * 2: len(dataset), :] = TestPredict
-
     testPredictPlot = testPredictPlot.reshape(len(testPredictPlot))
     testPredictPlot = list(testPredictPlot)
-
-
+    testPredictPlot = json.dumps(testPredictPlot)
 
     predPlot = np.zeros(len(dataset) + 7)
     predPlot = predPlot.reshape(predPlot.shape[0], 1)
     predPlot[:, :] = np.nan
     predPlot[-7:] = x_pred[6].reshape(x_pred.shape[0], 1)
     predPlot = scaler.inverse_transform(predPlot)  # Min-Max변환된 값을 원래대로 되돌림
+    predPlot = predPlot.reshape(len(predPlot))
+
+
 
     dataset = dataset.reshape(len(dataset))
     dataset = list(dataset)
@@ -201,6 +210,8 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     # plt.show()
 
     result = np.round(predPlot[-7:].reshape(look_back), 2)
+    predPlot = list(predPlot)
+    predPlot = json.dumps(predPlot)
     result_d1 = result[0]
     result_d2 = result[1]
     result_d3 = result[2]
@@ -213,6 +224,6 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     e = time.time()
     runtime = e - s
     runtime = round(runtime)
-    return result, result_d1, result_d2, result_d3, result_d4, result_d5, result_d6, result_d7, result_max, result_min, train_RMSE, test_RMSE, runtime, dataset, trainPredictPlot, testPredictPlot, predPlot
+    return result, result_d1, result_d2, result_d3, result_d4, result_d5, result_d6, result_d7, result_max, result_min, train_RMSE, test_RMSE, runtime, dataset, trainPredictPlot, testPredictPlot, predPlot, date
 
 
