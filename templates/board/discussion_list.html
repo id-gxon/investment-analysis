@@ -14,13 +14,13 @@
         <div class="col-4 input-group">
             <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}" >
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+               <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </div>
         </div>
     </div>
     <table class="table">
         <thead>
-        <tr class="text-center table-secondary">
+        <tr class="table-secondary">
             <th>번호</th>
             <th>추천</th>
             <th style="width:40%">제목</th>
@@ -38,7 +38,7 @@
             </td>
             <td>
                 {% if discussion.voter.all.count > 0 %}
-                <span class="badge badge-warning px-2 py-1">{{ discussion.voter.all.count }}</span>
+                <span class>{{ discussion.voter.all.count }}</span>
                 {% endif %}
             </td>
             <td class="text-left">

@@ -8,7 +8,7 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <figure class="highcharts-figure">
-      <div id="container" style="width:90%; height:700px" class="container my-3"></div>
+      <div id="container" style="width:100%; height:650px" class="container my-3"></div>
       <p class="highcharts-description">
 
       </p>
@@ -17,15 +17,17 @@
     <!-- 5. <script src="{% static 'chart/js/line.js' %}" ></script> -->
     <!-- 6. script -->
 <script>
+    var mydata = {{ trainPredictPlot }}
     Highcharts.chart('container', {
         chart: {
-          type: 'spline'
+          type: 'spline',
+
         },
         title: {
           text: '{{ stock }} RNN 분석결과'
         },
         subtitle: {
-          text: '순환 신경망을 통한 분석 결과'
+          text: '순환 신경망을 통한 {{ stock }}분석 결과'
         },
         xAxis: {
 
@@ -59,15 +61,28 @@
             symbol: 'square'
           },
           data: {{ dataset }}
-
         }
-<!--        , {-->
-<!--          name: 'London',-->
-<!--          marker: {-->
-<!--            symbol: 'diamond'-->
-<!--          },-->
-<!--          data: [10,9,8,7,6,5,4,3,2]-->
-<!--        }-->
+        , {
+          name: 'TrainPredict',
+          marker: {
+            symbol: 'diamond'
+          },
+          data: {{ trainPredictPlot }}
+        }
+        , {
+          name: 'TestPredict',
+          marker: {
+            symbol: 'diamond'
+          },
+          data: {{ testPredictPlot }}
+        }
+        , {
+          name: 'Predict',
+          marker: {
+            symbol: 'diamond'
+          },
+          data: {{ predPlot }}
+        }
         ]
       });
 </script>
