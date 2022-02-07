@@ -20,7 +20,7 @@
     </div>
     <table class="table">
         <thead>
-        <tr class="text-center table-secondary">
+        <tr class="table-secondary">
             <th>번호</th>
             <th>추천</th>
             <th style="width:40%">제목</th>
@@ -38,7 +38,7 @@
             </td>
             <td>
                 {% if discussion.voter.all.count > 0 %}
-                <span class="badge badge-warning px-2 py-1">{{ discussion.voter.all.count }}</span>
+                <span class>{{ discussion.voter.all.count }}</span>
                 {% endif %}
             </td>
             <td class="text-left">
