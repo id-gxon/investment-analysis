@@ -8,6 +8,7 @@ from keras.layers import SimpleRNN, Dense
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
+from django.db.models import Q
 import json
 import math
 import numpy as np
@@ -23,15 +24,21 @@ def s_index(request):
     종목 출력
     """
     page = request.GET.get('page', '1')
+    kw = request.GET.get('kw', '')  # 검색어
 
     stock_list = Code_name.objects.order_by('created_date')
+    if kw:
+        question_list = stock_list.filter(
+            Q(stock_name__icontains=kw) # 종목검색
+
+        ).distinct()
 
     # 페이징 처리
     paginator = Paginator(stock_list, 10)
 
     page_obj = paginator.get_page(page)
 
-    context = {'stock_list': page_obj}  # {'key' : value}
+    context = {'stock_list': page_obj, 'page': page, 'kw': kw}  # {'key' : value}
     return render(request, 'stockpredapp/stock_list.html', context)
 
 # def result(request, stock_id):
