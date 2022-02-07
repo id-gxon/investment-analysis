@@ -54,11 +54,11 @@
         <!--이전 페이지-->
         {% if stock_list.has_previous %}
         <li class="page-item">
-            <a class="page-link" data-page="{{ stock_list.previous_page_number }}" href="#">이전</a>
+            <a class="page-link" data-page1="{{ stock_list.previous_page_number }}" href="#">이전</a>
         </li>
         {% else %}
         <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+             <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
         </li>
         {% endif %}
         <!--페이지 리스트-->
@@ -66,11 +66,11 @@
         {% if page_number >= stock_list.number|add:-5 and page_number <= stock_list.number|add:5 %}
             {% if page_number == stock_list.number %}
             <li class="page-item active" aria-current="page">
-                <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                <a class="page-link" data-page1="{{ page_number }}" href="#">{{ page_number }}</a>
             </li>
             {% else %}
             <li class="page-item">
-                <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                <a class="page-link" data-page1="{{ page_number }}" href="#">{{ page_number }}</a>
             </li>
             {% endif %}
         {% endif %}
@@ -78,7 +78,7 @@
         <!--다음페이지-->
         {% if stock_list.has_next %}
         <li class="page-item">
-            <a class="page-link" data-page="{{ stock_list.next_page_number }}" href="#">다음</a>
+            <a class="page-link" data-page1="{{ stock_list.next_page_number }}" href="#">다음</a>
         </li>
         {% else %}
         <li class="page-item disabled">
@@ -90,21 +90,21 @@
 </div>
 <form id="searchForm1" method="get" action="{% url 'stockpredapp:s_index' %}">
     <input type="hidden" id="kw1" name="kw1" value="{{ kw1|default_if_none:'' }}">
-    <input type="hidden" id="page1" name="page1" value="{{ page }}">
+    <input type="hidden" id="page1" name="page1" value="{{ page1 }}">
 </form>
 {% endblock %}
 {% block script %}
 <script type='text/javascript'>
 $(document).ready(function(){
     $(".page-link").on('click', function() {
-        $("#page").val($(this).data("page"));
-        $("#searchForm").submit();
+        $("#page1").val($(this).data("page1"));
+        $("#searchForm1").submit();
     });
 
-    $("#btn_search").on('click', function() {
-        $("#kw").val($(".kw").val());
-        $("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
-        $("#searchForm").submit();
+    $("#btn_search1").on('click', function() {
+        $("#kw1").val($(".kw1").val());
+        $("#page1").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+        $("#searchForm1").submit();
     });
 });
 </script>

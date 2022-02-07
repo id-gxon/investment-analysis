@@ -23,22 +23,22 @@ def s_index(request):
     """
     종목 출력
     """
-    page = request.GET.get('page', '1')
-    kw = request.GET.get('kw', '')  # 검색어
+    page1 = request.GET.get('page1', '1')
+    kw1 = request.GET.get('kw1', '')  # 검색어
 
     stock_list = Code_name.objects.order_by('created_date')
-    if kw:
-        question_list = stock_list.filter(
-            Q(stock_name__icontains=kw) # 종목검색
+    if kw1:
+        stock_list = stock_list.filter(
+            Q(stock_name__icontains=kw1) # 종목검색
 
         ).distinct()
 
     # 페이징 처리
     paginator = Paginator(stock_list, 10)
 
-    page_obj = paginator.get_page(page)
+    page_obj = paginator.get_page(page1)
 
-    context = {'stock_list': page_obj, 'page': page, 'kw': kw}  # {'key' : value}
+    context = {'stock_list': page_obj, 'page1': page1, 'kw1': kw1}  # {'key' : value}
     return render(request, 'stockpredapp/stock_list.html', context)
 
 # def result(request, stock_id):
