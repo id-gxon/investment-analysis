@@ -17,7 +17,6 @@ from sklearn.model_selection import train_test_split
 import math
 import numpy as np
 import FinanceDataReader as fdr
-import matplotlib.pyplot as plt, mpld3
 import time
 import pandas as pd
 import pandas_datareader as pdr # 주식데이터 크롤링

@@ -8,7 +8,7 @@
                 <option value="recent" {% if so == 'recent' %}selected{% endif %}>최신순</option>
                 <option value="recommend" {% if so == 'recommend' %}selected{% endif %}>추천순</option>
                 <option value="popular" {% if so == 'popular' %}selected{% endif %}>인기순</option>
-                <option value="hitting" {% if so == 'hitting' %}selected{% endif %}>조회순</option>
+                <option value="cntview" {% if so == 'cntview' %}selected{% endif %}>조회순</option>
             </select>
         </div>
         <div class="col-4 input-group">
@@ -49,7 +49,7 @@
             </td>
             <td>{{ discussion.author.username }}</td>
             <td>{{ discussion.create_date }}</td>
-            <td>{{ discussion.hitting.count }}</td>
+            <td>{{ discussion.view_count }}</td>
         </tr>
         {% endfor %}
         {% else %}

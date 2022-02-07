@@ -11,12 +11,15 @@
     {% endfor %}
     </div>
     {% endif %}
-    <h2 class="border-bottom py-2">{{ discussion.subject }}</h2>
+    <h2 class="border-bottom py-2">
+        {{ discussion.subject }}<h6>조회수: {{ discussion.view_count }}</h6>
+    </h2>
+g
     <div class="row my-3">
         <div class="col-1">
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ discussion.voter.count }}</div>
             <a href="#" data-uri="{% url 'board:vote_discussion' discussion.id  %}"
-               class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+               class="recommend btn btn-sm btn-secondary btn-block my-1">추천하기</a>
         </div>
         <div class="col-11">
             <div class="card">
