@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from django.urls import reverse
+from django.urls import reverse
 
 
 class Discussion(models.Model):
@@ -11,12 +11,13 @@ class Discussion(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(null=True, blank=True)
     voter = models.ManyToManyField(User)
+    view_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.subject
-    #
-    # def get_absolute_url(self):
-    #     return reverse('board: discussion_detail', args=[str(self.id)])
+
+    def get_absolute_url(self):
+        return reverse('board: discussion_detail', args=[str(self.id)])
 
 
 class Answer(models.Model):
@@ -27,3 +28,11 @@ class Answer(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(null=True, blank=True)
     voter = models.ManyToManyField(User, related_name='voter_answer')
+
+
+class DiscussionCount(models.Model):
+    ip = models.CharField(max_length=30)
+    discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return self.ip

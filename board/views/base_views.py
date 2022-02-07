@@ -2,7 +2,8 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.shortcuts import render, get_object_or_404
 
-from ..models import Discussion
+from ..apps import get_client_ip
+from ..models import Discussion, DiscussionCount
 
 
 def index(request):
@@ -17,8 +18,8 @@ def index(request):
         discussion_list = Discussion.objects.annotate(num_voter=Count('voter')).order_by('-num_voter', '-create_date')
     elif so == 'popular':
         discussion_list = Discussion.objects.annotate(num_answer=Count('answer')).order_by('-num_answer', '-create_date')
-    elif so == 'view':
-        discussion_list = Discussion.objects.annotate(num_view=Count('view')).order_by('-num_view', '-create_date')
+    elif so == 'cntview':
+        discussion_list = Discussion.objects.order_by('-view_count', '-create_date')
     else:  # recent
         discussion_list = Discussion.objects.order_by('-create_date')
 
@@ -43,5 +44,16 @@ def detail(request, discussion_id):
     """
     discussion = get_object_or_404(Discussion, pk=discussion_id)
     context = {'discussion': discussion}
+
+    ip = get_client_ip(request)
+    cnt = DiscussionCount.objects.filter(ip=ip, discussion=discussion).count()
+    if cnt == 0:
+        qc = DiscussionCount(ip=ip, discussion=discussion)
+        qc.save()
+        if discussion.view_count:
+            discussion.view_count += 1
+        else:
+            discussion.view_count = 1
+        discussion.save()
 
     return render(request, 'board/discussion_detail.html', context)

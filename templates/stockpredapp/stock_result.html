@@ -1,22 +1,162 @@
-<h1>RNN(순환신경망) {{ stock.stock_name }} 분석결과</h1>
+{% extends 'base.html' %}
+<!--{% load static %}-->
+<!--<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">-->
+{% block content %}
+{% load static %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<figure class="highcharts-figure">
+      <div id="container" style="width:90%; height:700px" class="container my-3"></div>
+      <p class="highcharts-description">
 
-<h3>
-    종목코드 : {{ stock.stock_code }}<br>
-    상장 구분 : {{ stock.market }} <br>
-    사업 분야 : {{ stock.sector }} <br>
-    세부 분야 : {{ stock.industry }} <br>
-    상장일 : {{ stock.listing_date }} <br>
-    {{ stock.settle_month }} <br>
-    대표 : {{ stock.representative }} <br>
-    홈페이지 : {{ stock.homepage }} <br>
-    지역 : {{ stock.region }} <br>
-</h3>
+      </p>
+</figure>
 
-<div class="table">
-    D+7 예측 : {{ result }} <br>
-    예측 최대값 : {{ result_max }} <br>
-    예측 최소값 : {{ result_min }} <br>
-    train_RMSE : {{ train_RMSE }} <br>
-    test_RMSE : {{ test_RMSE }} <br>
-    분석에 걸린 시간 : {{ runtime }}
+    <!-- 5. <script src="{% static 'chart/js/line.js' %}" ></script> -->
+    <!-- 6. script -->
+<script>
+    Highcharts.chart('container', {
+        chart: {
+          type: 'spline'
+        },
+        title: {
+          text: '{{ stock }} RNN 분석결과'
+        },
+        subtitle: {
+          text: '순환 신경망을 통한 분석 결과'
+        },
+        xAxis: {
+
+        },
+        yAxis: {
+          title: {
+            text: '가격'
+          },
+          labels: {
+            formatter: function () {
+              return this.value + '원';
+            }
+          }
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              radius: 4,
+              lineColor: '#666666',
+              lineWidth: 1
+            }
+          }
+        },
+        series: [{
+          name: 'True',
+          marker: {
+            symbol: 'square'
+          },
+          data: {{ dataset }}
+
+        }
+<!--        , {-->
+<!--          name: 'London',-->
+<!--          marker: {-->
+<!--            symbol: 'diamond'-->
+<!--          },-->
+<!--          data: [10,9,8,7,6,5,4,3,2]-->
+<!--        }-->
+        ]
+      });
+</script>
+
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>분석 결과 출력</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>예측 최대값(원)</td>
+            <td>{{ result_max }}</td>
+        </tr>
+        <tr>
+            <td>예측 최소값(원)</td>
+            <td>{{ result_min }}</td>
+        </tr>
+        <tr>
+            <td>학습 데이터의 RMSE</td>
+            <td>{{ train_RMSE }}</td>
+        </tr>
+        <tr>
+            <td>Test 데이터의 RMSE</td>
+            <td>{{ test_RMSE }}</td>
+        </tr>
+        <tr>
+            <td>분석 소요 시간(초)</td>
+            <td>{{ runtime }}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>D+1</th>
+            <th>D+2</th>
+            <th>D+3</th>
+            <th>D+4</th>
+            <th>D+5</th>
+            <th>D+6</th>
+            <th>D+7</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ result_d1 }}원</td>
+            <td>{{ result_d2 }}원</td>
+            <td>{{ result_d3 }}원</td>
+            <td>{{ result_d4 }}원</td>
+            <td>{{ result_d5 }}원</td>
+            <td>{{ result_d6 }}원</td>
+            <td>{{ result_d7 }}원</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+
+
+
+{% endblock %}
+
+<!--<h1>RNN(순환신경망) {{ stock.stock_name }} 분석결과</h1>-->
+
+<!--<h3>-->
+<!--    종목코드 : {{ stock.stock_code }}<br>-->
+<!--    상장 구분 : {{ stock.market }} <br>-->
+<!--    사업 분야 : {{ stock.sector }} <br>-->
+<!--    세부 분야 : {{ stock.industry }} <br>-->
+<!--    상장일 : {{ stock.listing_date }} <br>-->
+<!--    {{ stock.settle_month }} <br>-->
+<!--    대표 : {{ stock.representative }} <br>-->
+<!--    홈페이지 : {{ stock.homepage }} <br>-->
+<!--    지역 : {{ stock.region }} <br>-->
+<!--</h3>-->
+
+<!--<div class="table">-->
+<!--    D+7 예측 : {{ result }} <br>-->
+<!--    예측 최대값 : {{ result_max }} <br>-->
+<!--    예측 최소값 : {{ result_min }} <br>-->
+<!--    train_RMSE : {{ train_RMSE }} <br>-->
+<!--    test_RMSE : {{ test_RMSE }} <br>-->
+<!--    분석에 걸린 시간 : {{ runtime }}-->
+<!--</div>-->

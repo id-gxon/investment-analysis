@@ -11,7 +11,10 @@
     {% endfor %}
     </div>
     {% endif %}
-    <h2 class="border-bottom py-2">{{ discussion.subject }}</h2>
+
+    <h2 class="border-bottom py-2">
+        {{ discussion.subject }}<h6>조회수: {{ discussion.view_count }}</h6>
+    </h2>
 
     <div class="container">
         {% if discussion.image %}
