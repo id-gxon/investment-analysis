@@ -7,6 +7,13 @@
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+
+
+
+
+
 <figure class="highcharts-figure">
       <div id="container" style="width:100%; height:650px" class="container my-3"></div>
       <p class="highcharts-description">
@@ -17,6 +24,7 @@
     <!-- 5. <script src="{% static 'chart/js/line.js' %}" ></script> -->
     <!-- 6. script -->
 <script>
+
     var mydata = {{ trainPredictPlot }}
     Highcharts.chart('container', {
         chart: {
@@ -27,10 +35,10 @@
           text: '{{ stock }} RNN 분석결과'
         },
         subtitle: {
-          text: '순환 신경망을 통한 {{ stock }}분석 결과'
+          text: '{{ start }} ~ {{ end }} {{ stock }}분석 결과'
         },
         xAxis: {
-
+            categories: {{ date|safe }}
         },
         yAxis: {
           title: {
@@ -49,9 +57,9 @@
         plotOptions: {
           spline: {
             marker: {
-              radius: 4,
+              radius: 3,
               lineColor: '#666666',
-              lineWidth: 1
+              lineWidth: 0.5
             }
           }
         },
@@ -60,28 +68,32 @@
           marker: {
             symbol: 'square'
           },
-          data: {{ dataset }}
+          data: {{ dataset }},
+          color: '#a3efff'
         }
         , {
           name: 'TrainPredict',
           marker: {
             symbol: 'diamond'
           },
-          data: {{ trainPredictPlot }}
+          data: {{ trainPredictPlot }},
+          color: '#c78cff'
         }
         , {
           name: 'TestPredict',
           marker: {
-            symbol: 'diamond'
+            symbol: 'circle'
           },
-          data: {{ testPredictPlot }}
+          data: {{ testPredictPlot }},
+          color: '#ffc899'
         }
         , {
           name: 'Predict',
           marker: {
-            symbol: 'diamond'
+            symbol: 'triangle'
           },
-          data: {{ predPlot }}
+          data: {{ predPlot }},
+          color: '#9d0000'
         }
         ]
       });

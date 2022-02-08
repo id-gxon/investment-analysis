@@ -20,7 +20,7 @@
     </div>
     <table class="table">
         <thead>
-        <tr class="table-secondary">
+        <tr class="text-center table-secondary">
             <th>번호</th>
             <th>추천</th>
             <th style="width:40%">제목</th>
@@ -32,11 +32,11 @@
         <tbody>
         {% if discussion_list %}
         {% for discussion in discussion_list %}
-        <tr class="text-center">
-            <td>
+        <tr class>
+            <td class="text-center">
                 {{ discussion_list.paginator.count|sub:discussion_list.start_index|sub:forloop.counter0|add:1 }}
             </td>
-            <td>
+            <td class="text-center">
                 {% if discussion.voter.all.count > 0 %}
                 <span class>{{ discussion.voter.all.count }}</span>
                 {% endif %}
@@ -47,9 +47,9 @@
                 <span class="text-danger small ml-2">{{ discussion.answer_set.count }}</span>
                 {% endif %}
             </td>
-            <td>{{ discussion.author.username }}</td>
-            <td>{{ discussion.create_date }}</td>
-            <td>{{ discussion.view_count }}</td>
+            <td class="text-center">{{ discussion.author.username }}</td>
+            <td class="text-center">{{ discussion.create_date }}</td>
+            <td class="text-center">{{ discussion.view_count }}</td>
         </tr>
         {% endfor %}
         {% else %}
