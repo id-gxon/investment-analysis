@@ -17,12 +17,14 @@
 <figure class="highcharts-figure">
       <div id="container" style="width:100%; height:650px" class="container my-3"></div>
       <p class="highcharts-description">
+
       </p>
 </figure>
 
     <!-- 5. <script src="{% static 'chart/js/line.js' %}" ></script> -->
     <!-- 6. script -->
 <script>
+
     var mydata = {{ trainPredictPlot }}
     Highcharts.chart('container', {
         chart: {
@@ -36,7 +38,7 @@
           text: '{{ start }} ~ {{ end }} {{ stock }}분석 결과'
         },
         xAxis: {
-
+            categories: {{ date|safe }}
         },
         yAxis: {
           title: {

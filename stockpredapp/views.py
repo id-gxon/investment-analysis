@@ -118,7 +118,7 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     date = list(date) # 리스트 변환
     for i in range(len(date)): # datetime -> str 변환
         date[i] = date[i].strftime("%Y-%m-%d")
-    # date = json.dumps(date) # json형태로 변환
+
 
     dataset = df['Close'].values  # 종가 데이터 추출
     dataset = dataset.reshape(dataset.shape[0], 1)  # 1차원배열을 2차원으로 변경
@@ -191,6 +191,7 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     testPredictPlot[:, :] = np.nan
     testPredictPlot[len(TrainPredict) + (look_back) * 2: len(dataset), :] = TestPredict
     testPredictPlot = testPredictPlot.reshape(len(testPredictPlot))
+    testPredictPlot = np.round(testPredictPlot, 2)  # 소수 둘째 자리만 표시
     testPredictPlot = list(testPredictPlot)
     testPredictPlot = json.dumps(testPredictPlot)
 
@@ -200,7 +201,7 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     predPlot[-7:] = x_pred[6].reshape(x_pred.shape[0], 1)
     predPlot = scaler.inverse_transform(predPlot)  # Min-Max변환된 값을 원래대로 되돌림
     predPlot = predPlot.reshape(len(predPlot))
-
+    predPlot = np.round(predPlot, 2)  # 소수 둘째 자리만 표시
     dataset = dataset.reshape(len(dataset)) # 주식 true값을 1차원으로 변경
     dataset = list(dataset) # 리스트 변환
 

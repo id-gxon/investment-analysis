@@ -70,7 +70,7 @@ class Rnn_result(models.Model):  # 순환신경망 분석결과 저장
 # from django.utils import timezone
 # import FinanceDataReader as fdr
 #
-# df = fdr.StockListing("KRX")
+# df = fdr.StockListing("KRX") # 한국 데이터 크롤링
 # df = df.fillna('')
 #
 # for i in range(len(df)): # stock_data 크롤링
@@ -90,7 +90,7 @@ class Rnn_result(models.Model):  # 순환신경망 분석결과 저장
 
 
 # import pandas as pd
-# df_na = fdr.StockListing("NASDAQ") # 나스닥
+# df_na = fdr.StockListing("NASDAQ") # 나스닥 # 외국 데이터 크롤링
 # df_na['Market'] = 'NASDAQ'
 # df_sp = fdr.StockListing("S&P500") # S&P500
 # df_sp['Market'] = 'S&P500'
