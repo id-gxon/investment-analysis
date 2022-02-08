@@ -19,8 +19,9 @@ class Discussion(models.Model):
     def get_absolute_url(self):
         return reverse('board: discussion_detail', args=[str(self.id)])
 
+
 class Answer(models.Model):
-    # author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_answer')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_answer')
     discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
     content = models.TextField()
     image = models.ImageField(null=True, blank=True)

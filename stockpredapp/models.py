@@ -1,9 +1,10 @@
 from django.db import models
 
+
 # Create your models here.
 
 
-class Test(models.Model): # db 테스트용
+class Test(models.Model):  # db 테스트용
     created_date = models.DateTimeField(null=True)
     stock_code = models.CharField(max_length=200)
     stock_name = models.CharField(max_length=200)
@@ -12,7 +13,7 @@ class Test(models.Model): # db 테스트용
         return self.stock_name
 
 
-class Code_name(models.Model): # 크롤링한 종목코드와 종목이름
+class Code_name(models.Model):  # 크롤링한 종목코드와 종목이름
     created_date = models.DateTimeField(null=True)
     stock_code = models.CharField(max_length=200, null=True)  # 종목코드
     stock_name = models.CharField(max_length=200, null=True)  # 종목이름
@@ -29,29 +30,29 @@ class Code_name(models.Model): # 크롤링한 종목코드와 종목이름
         return self.stock_name
 
 
-class Rnn_data(models.Model): # 사용자로부터 받은 데이터
-    created_date = models.DateTimeField(null=True)
-    user_id = models.CharField(null=True, max_length=200) # 사용자 id
-    stock_code = models.CharField(max_length=200) # 종목코드
-    stock_name = models.CharField(max_length=200) # 종목이름
-
-    start = models.DateField() # 조회시작일
-    end = models.DateField() # 조회종료일
-
-
-class Rnn_result(models.Model): # 순환신경망 분석결과 저장
+class Rnn_data(models.Model):  # 사용자로부터 받은 데이터
     created_date = models.DateTimeField(null=True)
     user_id = models.CharField(null=True, max_length=200)  # 사용자 id
-    stock_code = models.CharField(max_length=200) # 종목코드
-    stock_name = models.CharField(max_length=200) # 종목이름
+    stock_code = models.CharField(max_length=200)  # 종목코드
+    stock_name = models.CharField(max_length=200)  # 종목이름
 
-    start = models.DateField() # 조회시작일
-    end = models.DateField() # 조회종료일
+    start = models.DateField()  # 조회시작일
+    end = models.DateField()  # 조회종료일
 
-    result_max = models.DecimalField(max_digits=10, decimal_places=2) # 예측값을 최대값
-    result_min = models.DecimalField(max_digits=10, decimal_places=2) # 예측값의 최소값
 
-    d1 = models.DecimalField(max_digits=10, decimal_places=2) # n일 후 예측치
+class Rnn_result(models.Model):  # 순환신경망 분석결과 저장
+    created_date = models.DateTimeField(null=True)
+    user_id = models.CharField(null=True, max_length=200)  # 사용자 id
+    stock_code = models.CharField(max_length=200)  # 종목코드
+    stock_name = models.CharField(max_length=200)  # 종목이름
+
+    start = models.DateField()  # 조회시작일
+    end = models.DateField()  # 조회종료일
+
+    result_max = models.DecimalField(max_digits=10, decimal_places=2)  # 예측값을 최대값
+    result_min = models.DecimalField(max_digits=10, decimal_places=2)  # 예측값의 최소값
+
+    d1 = models.DecimalField(max_digits=10, decimal_places=2)  # n일 후 예측치
     d2 = models.DecimalField(max_digits=10, decimal_places=2)
     d3 = models.DecimalField(max_digits=10, decimal_places=2)
     d4 = models.DecimalField(max_digits=10, decimal_places=2)
@@ -59,13 +60,11 @@ class Rnn_result(models.Model): # 순환신경망 분석결과 저장
     d6 = models.DecimalField(max_digits=10, decimal_places=2)
     d7 = models.DecimalField(max_digits=10, decimal_places=2)
 
-    train_RMSE = models.DecimalField(max_digits=10, decimal_places=2) # train_data의 RMSE
-    test_RMSE = models.DecimalField(max_digits=10, decimal_places=2) # test_data의 RMSE
+    train_RMSE = models.DecimalField(max_digits=10, decimal_places=2)  # train_data의 RMSE
+    test_RMSE = models.DecimalField(max_digits=10, decimal_places=2)  # test_data의 RMSE
 
-    def __str__(self): # 조회할때 id 번호 대신 종목이름으로 보여주기
+    def __str__(self):  # 조회할때 id 번호 대신 종목이름으로 보여주기
         return self.stock_name
-
-
 
 # from stockpredapp.models import Code_name
 # from django.utils import timezone
@@ -123,5 +122,3 @@ class Rnn_result(models.Model): # 순환신경망 분석결과 저장
 #         sector = df.iloc[i, 5],
 #         )
 #     s.save()
-
-

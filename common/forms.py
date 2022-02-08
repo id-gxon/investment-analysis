@@ -5,14 +5,16 @@ from django.contrib.auth import get_user_model
 
 
 class UserForm(UserCreationForm):
-    email = forms.EmailField(label="이메일")
+    username = forms.EmailField(label="username")
+    nickname = forms.CharField(max_length=16)
+    # stockfirm = forms.
 
     class Meta:
         model = User
-        fields = ("username", "password1", "password2", "email")
+        fields = ["username", "nickname", "password1", "password2"]
 
 
-class UserUpdateForm(forms.ModelForm):
-    class Meta:
-        model = get_user_model()
-        fields = ['username', 'email', 'email']
+# class CustomUserChangeForm(UserChangeForm):
+#     class Meta:
+#         model = User
+#         fields = ["nickname", "password"]
