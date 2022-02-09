@@ -35,13 +35,13 @@
                     <div class="card-text">{{ discussion.content|mark }}</div>
                     <div class="d-flex justify-content-end">
                         {% if discussion.modify_date %}
-                        <div class="badge badge-light p-2 text-left mx-3">
+                        <div class="badge rounded-pill bg-light p-2 text-left mx-3">
                             <div class="mb-2">modified at</div>
                             <div>{{ discussion.modify_date }}</div>
                         </div>
                         {% endif %}
                         {% if discussion.image %}
-                        <div class="badge badge-light p-2 text-left mx-3">
+                        <div class="badge rounded-pill bg-light p-2 text-left mx-3">
                             <div class="mb-2">image</div>
                             <div>{{ discussion.image }}</div>
                         </div>
