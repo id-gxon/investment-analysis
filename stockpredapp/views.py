@@ -16,9 +16,12 @@ import math
 import numpy as np
 import FinanceDataReader as fdr
 import time
+from multiprocessing import Process
 
 
-epochs = 100 # 학습반복수
+
+epochs = 20 # 학습반복수
+
 
 
 def s_index(request):
@@ -53,6 +56,15 @@ def s_index(request):
 #     context = {'stock': stock}
 #     return render(request, 'stockpredapp/stock_result.html', context)
 
+# def loading(request, stock_id):
+#     context = {'stock_id':stock_id}
+#     return render(request, 'stockpredapp/loading.html', context)
+
+def loading(request, stock_id):
+    stock = Code_name.objects.get(id=stock_id)
+    context = {'stock':stock,
+               'stock_id':stock_id}
+    return render(request, 'stockpredapp/loading.html', context)
 
 def result(request, stock_id):
     '''

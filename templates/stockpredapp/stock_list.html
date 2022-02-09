@@ -2,6 +2,34 @@
 {% load stockpredapp_filter %}
 {% block content %}
 {% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<style>
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+</style>
+<div class="loader"></div>
+<script>
+    $(window).load(function(){
+        $('.loader').delay(300).fadeOut();
+        });
+</script>
+
+
 <link rel="stylesheet" type="'text/css" href="{% static 'bootstrap.min.css' %}">
 <div class="container my-3">
     <div class="row justify-content-end my-3">
@@ -15,7 +43,7 @@
     <p>종목 코드로 검색하는게 더 빠릅니다.</p>
     <table class="table">
         <thead>
-        <tr class="text-center table-secondary">
+        <tr class="table-secondary">
             <th>번호</th>
             <th>종목명</th>
             <th>종목코드</th>
@@ -33,7 +61,7 @@
                 {{ stock_list.paginator.count|sub:stock_list.start_index|sub:forloop.counter0|add:1 }}
             </td>
             <td>
-                <a href="{% url 'stockpredapp:result' stock.id %}">{{ stock.stock_name }}</a>
+                <a href="{% url 'stockpredapp:loading' stock.id %}">{{ stock.stock_name }}</a>
             </td>
             <td>
                 <a href="{% url 'stockpredapp:result' stock.id %}">{{ stock.stock_code }}</a>
