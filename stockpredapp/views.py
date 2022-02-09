@@ -20,7 +20,7 @@ from multiprocessing import Process
 
 
 
-epochs = 20 # 학습반복수
+epochs = 100  # 학습반복수
 
 
 
@@ -62,8 +62,10 @@ def s_index(request):
 
 def loading(request, stock_id):
     stock = Code_name.objects.get(id=stock_id)
+    name = Code_name.objects.get(id=stock_id).stock_name
     context = {'stock':stock,
-               'stock_id':stock_id}
+               'stock_id':stock_id,
+               'name':name}
     return render(request, 'stockpredapp/loading.html', context)
 
 def result(request, stock_id):
