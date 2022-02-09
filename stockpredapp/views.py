@@ -79,50 +79,56 @@ def result(request, stock_id):
     start = end - relativedelta(months=12)
     start = start.strftime("%Y-%m-%d")
     end = end.strftime("%Y-%m-%d")
+    try:
+        Result = rnn(name, start=start, end=end)
+        result = Result[0]  # rnn 함수결과를 변수에 할당
+        result_d1 = Result[1]
+        result_d2 = Result[2]
+        result_d3 = Result[3]
+        result_d4 = Result[4]
+        result_d5 = Result[5]
+        result_d6 = Result[6]
+        result_d7 = Result[7]
+        result_max = Result[8]
+        result_min = Result[9]
+        train_RMSE = Result[10]
+        test_RMSE = Result[11]
+        runtime = Result[12]
+        dataset = Result[13]
+        trainPredictPlot = Result[14]
+        testPredictPlot = Result[15]
+        predPlot = Result[16]
+        date = Result[17]
 
-    Result = rnn(name, start=start, end=end)
-    result = Result[0]  # rnn 함수결과를 변수에 할당
-    result_d1 = Result[1]
-    result_d2 = Result[2]
-    result_d3 = Result[3]
-    result_d4 = Result[4]
-    result_d5 = Result[5]
-    result_d6 = Result[6]
-    result_d7 = Result[7]
-    result_max = Result[8]
-    result_min = Result[9]
-    train_RMSE = Result[10]
-    test_RMSE = Result[11]
-    runtime = Result[12]
-    dataset = Result[13]
-    trainPredictPlot = Result[14]
-    testPredictPlot = Result[15]
-    predPlot = Result[16]
-    date = Result[17]
+        context = {'stock': stock,  # 분석결과 페이지에 보낼 데이터 정리
+                   'result': result,
+                   'result_d1': result_d1,
+                   'result_d2': result_d2,
+                   'result_d3': result_d3,
+                   'result_d4': result_d4,
+                   'result_d5': result_d5,
+                   'result_d6': result_d6,
+                   'result_d7': result_d7,
+                   'result_max': result_max,
+                   'result_min': result_min,
+                   'train_RMSE': train_RMSE,
+                   'test_RMSE': test_RMSE,
+                   'runtime': runtime,
+                   'dataset': dataset,
+                   'trainPredictPlot': trainPredictPlot,
+                   'testPredictPlot': testPredictPlot,
+                   'predPlot': predPlot,
+                   'date': date,
+                   'start': start,
+                   'end': end
+                   }
+        return render(request, 'stockpredapp/stock_result.html', context)
+    except:
+        context = {'stock':stock}
+        return render(request, 'stockpredapp/error.html', context)
 
-    context = {'stock':stock, # 분석결과 페이지에 보낼 데이터 정리
-               'result': result,
-               'result_d1': result_d1,
-               'result_d2': result_d2,
-               'result_d3': result_d3,
-               'result_d4': result_d4,
-               'result_d5': result_d5,
-               'result_d6': result_d6,
-               'result_d7': result_d7,
-               'result_max':result_max,
-               'result_min':result_min,
-               'train_RMSE':train_RMSE,
-               'test_RMSE':test_RMSE,
-               'runtime':runtime,
-               'dataset':dataset,
-               'trainPredictPlot':trainPredictPlot,
-               'testPredictPlot':testPredictPlot,
-               'predPlot': predPlot,
-               'date' : date,
-               'start' : start,
-               'end' : end
-                }
-    return render(request, 'stockpredapp/stock_result.html', context)
+# def error(request):
+#     return render(request, 'stockpredapp/error.html')
 
 
 def rnn(code, start, end):  # 순환신경망(RNN)분석 함수

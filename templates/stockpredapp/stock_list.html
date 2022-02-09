@@ -64,7 +64,7 @@
                 <a href="{% url 'stockpredapp:loading' stock.id %}">{{ stock.stock_name }}</a>
             </td>
             <td>
-                <a href="{% url 'stockpredapp:result' stock.id %}">{{ stock.stock_code }}</a>
+                <a href="{% url 'stockpredapp:loading' stock.id %}">{{ stock.stock_code }}</a>
             </td>
             <td>{{ stock.market }}</td>
             <td>{{ stock.sector }} / {{ stock.industry}}</td>

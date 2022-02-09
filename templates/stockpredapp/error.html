@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load stockpredapp_filter %}
+{% block content %}
+{% load static %}
+<p></p>
+<div class="container" style="text-align : center;">
+    <img src="https://t1.daumcdn.net/cfile/tistory/99BB66425DFFA2EA30" alt="My Image" width="500" height="400">
+    <p></p>
+    <h4 class="font-center text-white bg-primary">{{ stock }}(은)는 지원하지 않는 종목입니다.</h4>
+    <h4 class="font-center text-white bg-primary">5초 후 종목 선택 화면으로 되돌아갑니다.</h4>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+   $(document).ready(function(){
+        setTimeout(function(){
+            if (window.location == 'http://127.0.0.1:8000/stockpredapp/{{stock.id}}/' ) {
+            window.location.href='http://127.0.0.1:8000/stockpredapp/';}}, 5000)
+        })
+</script>
+
+{% endblock %}
