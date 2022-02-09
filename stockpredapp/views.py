@@ -36,7 +36,7 @@ def s_index(request):
         stock_list = stock_list.filter(
             Q(stock_name__icontains=kw1) | # 종목이름검색
             Q(stock_code__icontains=kw1) |# 종목코드검색
-            Q(market__icontains=kw1)
+            Q(market__icontains=kw1) # 상장구분 검색
         ).distinct()
 
     # 페이징 처리
@@ -138,6 +138,13 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     date = list(date) # 리스트 변환
     for i in range(len(date)): # datetime -> str 변환
         date[i] = date[i].strftime("%Y-%m-%d")
+    date.append('d+1')
+    date.append('d+2')
+    date.append('d+3')
+    date.append('d+4')
+    date.append('d+5')
+    date.append('d+6')
+    date.append('d+7')
 
 
     dataset = df['Close'].values  # 종가 데이터 추출
