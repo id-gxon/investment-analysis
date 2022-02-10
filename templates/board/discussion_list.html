@@ -2,7 +2,15 @@
 {% load board_filter %}
 {% block content %}
 <div class="container my-3">
-    <div class="row justify-content-between my-3">
+    <div class="row justify-content-end my-3">
+        <div class="col-4 input-group">
+            <input type="text" class="form-control kw me-sm-2 " value="{{ kw|default_if_none:'' }}" >
+            <div class="input-group-append">
+               <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="btn_search">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-front my-3">
         <div class="col-2">
             <select class="form-control so">
                 <option value="recent" {% if so == 'recent' %}selected{% endif %}>최신순</option>
@@ -10,12 +18,6 @@
                 <option value="popular" {% if so == 'popular' %}selected{% endif %}>인기순</option>
                 <option value="cntview" {% if so == 'cntview' %}selected{% endif %}>조회순</option>
             </select>
-        </div>
-        <div class="col-4 input-group">
-            <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}" >
-            <div class="input-group-append">
-               <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="btn_search">Search</button>
-            </div>
         </div>
     </div>
     <table class="table">
