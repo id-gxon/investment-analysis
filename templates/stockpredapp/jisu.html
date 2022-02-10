@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+<!--{% load static %}-->
+<!--<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">-->
+{% block content %}
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<style>
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+</style>
+<div class="loader"></div>
+<script>
+    $(window).load(function(){
+        $('.loader').delay(500).fadeOut();
+        });
+</script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<figure class="highcharts-figure">
+    <div id="container" style="width:100%; height:650px" class="container my-3"></div>
+    <p class="highcharts-description">
+
+    </p>
+</figure>
+<div class="loader"></div>
+
+    <!-- 5. <script src="{% static 'chart/js/line.js' %}" ></script> -->
+    <!-- 6. script -->
+<script>
+    Highcharts.chart('container', {
+        chart: {
+          type: 'spline',
+        },
+        title: {
+          text: 'KOSPI / KOSDAQ'
+        },
+        subtitle: {
+          text: '{{ start }} ~ {{ end }}'
+        },
+        xAxis: {
+            categories: {{ date|safe }}
+        },
+        yAxis: {
+          title: {
+            text: '지수'
+          },
+          labels: {
+            formatter: function () {
+              return this.value + 'P';
+            }
+          }
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              radius: 3,
+              lineColor: '#666666',
+              lineWidth: 0.5
+            }
+          }
+        },
+        series: [{
+          name: 'KOSPI',
+          marker: {
+            symbol: 'square'
+          },
+          data: {{ kospi }},
+          color: '#a3efff'
+        }
+        , {
+          name: 'KOSDAQ',
+          marker: {
+            symbol: 'diamond'
+          },
+          data: {{ kosdaq }},
+          color: '#c78cff'
+        }
+        ]
+      });
+</script>
+<h1>{{ runtime }}</h1>
+</body>
+{% endblock %}

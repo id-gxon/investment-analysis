@@ -60,6 +60,33 @@ def s_index(request):
 #     context = {'stock_id':stock_id}
 #     return render(request, 'stockpredapp/loading.html', context)
 
+def jisu(request):
+    end = datetime.today() # 오늘 날짜
+    start = end - relativedelta(months=1) # 1년전 날짜
+    start = start.strftime("%Y-%m-%d") # 문자열 변환
+    end = end.strftime("%Y-%m-%d") # 문자열 변환
+
+    kospi = fdr.DataReader(symbol='KS11', start=start, end=end).reset_index()  # 코스피 1년 데이터 클롤링
+    kospi = kospi.loc[:, 'Close'] # 종가 데이터 추출
+    kospi = list(kospi) # 리스트 변환
+
+    kosdaq = fdr.DataReader(symbol='KQ11', start=start, end=end).reset_index()  # 코스닥 1년 데이터 크롤링
+    date = kosdaq.loc[:, 'Date']  # 날짜 데이터 추출
+    date = list(date)
+    for i in range(len(date)):  # datetime -> str 변환
+        date[i] = date[i].strftime("%Y-%m-%d")
+    kosdaq = kosdaq.loc[:, 'Close']  # 종가 데이터 추출
+    kosdaq = list(kosdaq)  # 리스트 변환
+    context = {'kospi':kospi,
+               'kosdaq':kosdaq,
+               'date':date,
+               'start':start,
+               'end':end,
+               }
+    return render(request, 'stockpredapp/jisu.html', context)
+
+
+
 def loading(request, stock_id):
     stock = Code_name.objects.get(id=stock_id)
     name = Code_name.objects.get(id=stock_id).stock_name
@@ -99,6 +126,11 @@ def result(request, stock_id):
         testPredictPlot = Result[15]
         predPlot = Result[16]
         date = Result[17]
+        if result_min > dataset[-1]: # 예측값의 최소값이 실제데이터의 가장 최근 날짜보다 크면 매수
+            recommend = '매수'
+        elif result_min > dataset[-1]: # 예측값의 최소값이 실제데이터의 가장 최근 날짜보다 작으면 매도
+            recommend = '매도'
+
 
         context = {'stock': stock,  # 분석결과 페이지에 보낼 데이터 정리
                    'result': result,
@@ -120,7 +152,8 @@ def result(request, stock_id):
                    'predPlot': predPlot,
                    'date': date,
                    'start': start,
-                   'end': end
+                   'end': end,
+                   'recommend' : recommend
                    }
         return render(request, 'stockpredapp/stock_result.html', context)
     except:
