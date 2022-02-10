@@ -29,27 +29,39 @@
         $('.loader').delay(500).fadeOut();
         });
 </script>
+<div class="loader"></div>
+
+
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<!--코스피, 코스닥 그래프-->
 <figure class="highcharts-figure">
-    <div id="container" style="width:100%; height:650px" class="container my-3"></div>
+    <div id="container_kospi" style="width:50%; height:300px; float:left;" class="container my-3"></div>
+    <div id="container_kosdaq" style="width:50%; height:300px; float:left;" class="container my-3"></div>
     <p class="highcharts-description">
 
     </p>
 </figure>
-<div class="loader"></div>
+<!--다우, 나스닥 그래프-->
+<figure class="highcharts-figure">
+    <div id="container_dows" style="width:50%; height:300px; float:left" class="container my-3"></div>
+    <div id="container_nasdaq" style="width:50%; height:300px; float:left" class="container my-3"></div>
+    <p class="highcharts-description">
 
-    <!-- 5. <script src="{% static 'chart/js/line.js' %}" ></script> -->
-    <!-- 6. script -->
+    </p>
+</figure>
+
+
 <script>
-    Highcharts.chart('container', {
+    Highcharts.chart('container_kospi', {
         chart: {
           type: 'spline',
         },
         title: {
-          text: 'KOSPI / KOSDAQ'
+          text: 'KOSPI'
         },
         subtitle: {
           text: '{{ start }} ~ {{ end }}'
@@ -86,9 +98,49 @@
             symbol: 'square'
           },
           data: {{ kospi }},
-          color: '#a3efff'
+          color: '#c78cff'
         }
-        , {
+        ]
+      });
+</script>
+<script>
+    Highcharts.chart('container_kosdaq', {
+        chart: {
+          type: 'spline',
+        },
+        title: {
+          text: 'KOSDAQ'
+        },
+        subtitle: {
+          text: '{{ start }} ~ {{ end }}'
+        },
+        xAxis: {
+            categories: {{ date|safe }}
+        },
+        yAxis: {
+          title: {
+            text: '지수'
+          },
+          labels: {
+            formatter: function () {
+              return this.value + 'P';
+            }
+          }
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              radius: 3,
+              lineColor: '#666666',
+              lineWidth: 0.5
+            }
+          }
+        },
+        series: [{
           name: 'KOSDAQ',
           marker: {
             symbol: 'diamond'
@@ -99,6 +151,162 @@
         ]
       });
 </script>
-<h1>{{ runtime }}</h1>
+<script>
+    Highcharts.chart('container_dows', {
+        chart: {
+          type: 'spline',
+        },
+        title: {
+          text: '다우 지수'
+        },
+        subtitle: {
+          text: '{{ start }} ~ {{ end }}'
+        },
+        xAxis: {
+            categories: {{ date|safe }}
+        },
+        yAxis: {
+          title: {
+            text: '지수'
+          },
+          labels: {
+            formatter: function () {
+              return this.value + 'P';
+            }
+          }
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              radius: 3,
+              lineColor: '#666666',
+              lineWidth: 0.5
+            }
+          }
+        },
+        series: [{
+          name: '다우지수',
+          marker: {
+            symbol: 'diamond'
+          },
+          data: {{ dows }},
+          color: '#c78cff'
+        }
+        ]
+      });
+</script>
+<script>
+    Highcharts.chart('container_nasdaq', {
+        chart: {
+          type: 'spline',
+        },
+        title: {
+          text: '나스닥 지수'
+        },
+        subtitle: {
+          text: '{{ start }} ~ {{ end }}'
+        },
+        xAxis: {
+            categories: {{ date|safe }}
+        },
+        yAxis: {
+          title: {
+            text: '지수'
+          },
+          labels: {
+            formatter: function () {
+              return this.value + 'P';
+            }
+          }
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              radius: 3,
+              lineColor: '#666666',
+              lineWidth: 0.5
+            }
+          }
+        },
+        series: [{
+          name: '나스닥 지수',
+          marker: {
+            symbol: 'diamond'
+          },
+          data: {{ nasdaq }},
+          color: '#c78cff'
+        }
+        ]
+      });
+</script>
+
+
+<!--&lt;!&ndash;S&P 500 그래프&ndash;&gt;-->
+<!--<figure class="highcharts-figure">-->
+<!--    <div id="container_sp500" style="width:100%; height:400px" class="container my-3"></div>-->
+<!--    <p class="highcharts-description">-->
+
+<!--    </p>-->
+<!--</figure>-->
+
+
+<!--    &lt;!&ndash; 5. <script src="{% static 'chart/js/line.js' %}" ></script> &ndash;&gt;-->
+<!--    &lt;!&ndash; 6. script &ndash;&gt;-->
+<!--<script>-->
+<!--    Highcharts.chart('container_sp500', {-->
+<!--        chart: {-->
+<!--          type: 'spline',-->
+<!--        },-->
+<!--        title: {-->
+<!--          text: 'S&P 500'-->
+<!--        },-->
+<!--        subtitle: {-->
+<!--          text: '{{ start }} ~ {{ end }}'-->
+<!--        },-->
+<!--        xAxis: {-->
+<!--            categories: {{ date|safe }}-->
+<!--        },-->
+<!--        yAxis: {-->
+<!--          title: {-->
+<!--            text: '지수'-->
+<!--          },-->
+<!--          labels: {-->
+<!--            formatter: function () {-->
+<!--              return this.value + 'P';-->
+<!--            }-->
+<!--          }-->
+<!--        },-->
+<!--        tooltip: {-->
+<!--          crosshairs: true,-->
+<!--          shared: true-->
+<!--        },-->
+<!--        plotOptions: {-->
+<!--          spline: {-->
+<!--            marker: {-->
+<!--              radius: 3,-->
+<!--              lineColor: '#666666',-->
+<!--              lineWidth: 0.5-->
+<!--            }-->
+<!--          }-->
+<!--        },-->
+<!--        series: [{-->
+<!--          name: 'S&P 500',-->
+<!--          marker: {-->
+<!--            symbol: 'diamond'-->
+<!--          },-->
+<!--          data: {{ sp500 }},-->
+<!--          color: '#c78cff'-->
+<!--        }-->
+<!--        ]-->
+<!--      });-->
+<!--</script>-->
 </body>
 {% endblock %}

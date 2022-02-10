@@ -59,10 +59,14 @@ def s_index(request):
 # def loading(request, stock_id):
 #     context = {'stock_id':stock_id}
 #     return render(request, 'stockpredapp/loading.html', context)
+def main_loading(request):
+    return render(request, 'stockpredapp/main_loading.html')
+def main_loading2(request):
+    return render(request, 'stockpredapp/main_loading2.html')
 
 def jisu(request):
     end = datetime.today() # 오늘 날짜
-    start = end - relativedelta(months=1) # 1년전 날짜
+    start = end - relativedelta(months=1)
     start = start.strftime("%Y-%m-%d") # 문자열 변환
     end = end.strftime("%Y-%m-%d") # 문자열 변환
 
@@ -77,11 +81,27 @@ def jisu(request):
         date[i] = date[i].strftime("%Y-%m-%d")
     kosdaq = kosdaq.loc[:, 'Close']  # 종가 데이터 추출
     kosdaq = list(kosdaq)  # 리스트 변환
+
+    dows = fdr.DataReader(symbol='DJI', start=start, end=end).reset_index()  # 다우지수
+    dows = dows.loc[:, 'Close'] # 종가 데이터 추출
+    dows = list(dows)  # 리스트 변환
+
+    nasdaq = fdr.DataReader(symbol='IXIC', start=start, end=end).reset_index()  # 나스닥지수
+    nasdaq = nasdaq.loc[:, 'Close']  # 종가 데이터 추출
+    nasdaq = list(nasdaq)  # 리스트 변환
+
+    # sp500 = fdr.DataReader(symbol='US500', start=start, end=end).reset_index()  # S&P 500
+    # sp500 = sp500.loc[:, 'Close']  # 종가 데이터 추출
+    # sp500 = list(sp500)  # 리스트 변환
+
     context = {'kospi':kospi,
                'kosdaq':kosdaq,
                'date':date,
                'start':start,
                'end':end,
+               'dows':dows,
+               'nasdaq':nasdaq,
+               # 'sp500':sp500
                }
     return render(request, 'stockpredapp/jisu.html', context)
 

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load stockpredapp_filter %}
+{% block content %}
+{% load static %}
+<p></p>
+<div class="container" style="text-align : center;">
+    <img src="https://i.pinimg.com/originals/7b/8e/00/7b8e00e3534bdf4c3118fe01a3c2df83.gif" alt="My Image" width="700" height="500">
+    <p></p>
+    <h3 class="font-center text-white bg-primary">데이터 수집 중입니다. 잠시만 기다려주세요.</h3>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+   $(document).ready(function(){
+        setTimeout(function(){
+            if (window.location == 'http://127.0.0.1:8000/' ) {
+            window.location.href='http://127.0.0.1:8000/stockpredapp/jisu/';}})
+        })
+</script>
+
+{% endblock %}
