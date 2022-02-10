@@ -1,52 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'layout.html' %}
 
 {% block content %}
+    <h2>{{ user.username }}'s Profile</h2>
 
-<h2>{{ user.username }}'s Profile</h2>
+    <a href="{% url 'common:password_change' %}">암호 변경</a>
 
-<a href="{% url 'password_change' %}">암호 변경</a>
+    <h3>Email</h3>
+    {{ user.email|default:"&dash;" }}
 
-<h3>Email</h3>
-{{ user.email|default:"&dash;" }}
+    <h3>nickname</h3>
+    {{ user.profile.nickname|default:"&dash;" }}
 
-<h3>nickname</h3>
-{{ user.profile.nickname|default:"&dash;" }}
-
-{% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-<!--{% block content %}-->
-<!--<h1>{{ user.pk }} : {{ user.username }}</h1>-->
-<!--{% if request.user == user %}-->
-<!--    <a href="{% url 'common:update' %}">회원 수정</a>-->
-<!--    <form action="{% url 'common:delete' %}" method="POST">-->
-<!--        {% csrf_token %}-->
-<!--        <button class="btn btn-secondary">회원 탈퇴</button>-->
-<!--    </form>-->
-<!--{% endif %}-->
-<!--<hr>-->
-<!--<h3>작성한 글 목록</h3>-->
-<!--{% for article in user.article_set.all %}-->
-<!--    <a href="{% url 'common:profile' detail.pk %}">-->
-<!--        <p>{{ profile.title }}</p>-->
-<!--    </a>-->
-<!--{% endfor %}-->
-
-<!--<h3>좋아요한 글 목록</h3>-->
-<!--{% for article in user.like_articles.all %}-->
-<!--    <a href="{% url 'common:profile' detail.pk %}">-->
-<!--        <p>{{ article.title }}</p>-->
-<!--    </a>-->
-<!--{% endfor %}-->
-
+    <h3>stockfirm</h3>
+    {{ user.profile.nickname|default:"&dash;" }}
 {% endblock %}
