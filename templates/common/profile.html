@@ -1,16 +1,10 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <h2>{{ user.username }}'s Profile</h2>
-
-    <a href="{% url 'common:password_change' %}">암호 변경</a>
-
-    <h3>Email</h3>
-    {{ user.email|default:"&dash;" }}
-
-    <h3>nickname</h3>
-    {{ user.profile.nickname|default:"&dash;" }}
-
-    <h3>stockfirm</h3>
-    {{ user.profile.nickname|default:"&dash;" }}
+<h2>{{ user.username }}'s Profile</h2>
+<a href="{% url 'common:password_change' %}">암호 변경</a>
+<h3>Email</h3>
+{{ user.email|default:"&dash;" }}
+<h3>nickname</h3>
+{{ user.profile.nickname|default:"&dash;" }}
 {% endblock %}
