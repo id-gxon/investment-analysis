@@ -87,8 +87,8 @@ class Rnn_result(models.Model):  # 순환신경망 분석결과 저장
 #         homepage=df.iloc[i, 8],
 #         region=df.iloc[i, 9])
 #     s.save()
-
-
+#
+#
 # import pandas as pd
 # df_na = fdr.StockListing("NASDAQ") # 나스닥 # 외국 데이터 크롤링
 # df_na['Market'] = 'NASDAQ'
@@ -98,20 +98,11 @@ class Rnn_result(models.Model):  # 순환신경망 분석결과 저장
 # df_ny['Market'] = 'NYSE'
 # df_am = fdr.StockListing("AMEX") # 아메리카 증권거래소
 # df_am['Market'] = 'AMEX'
-# df_ss = fdr.StockListing("SSE") # 상하이 증권거래소
-# df_ss['Market'] = 'SSE'
-# df_sz = fdr.StockListing("SZSE") # 선전 증권거래소
-# df_sz['Market'] = 'SZSE'
-# df_hk = fdr.StockListing("HKEX") # 홍콩 증권거래소
-# df_hk['Market'] = 'HKEX'
-# df_ts = fdr.StockListing("TSE") # 뉴욕 거래소
-# df_ts['Market'] = 'TSE'
-# df_ho = fdr.StockListing("HOSE") # 호치민 주식거래소
-# df_ho['Market'] = 'HOSE'
-# df = pd.concat([df_na, df_sp, df_ny, df_am, df_ss, df_sz, df_hk, df_ts, df_ho])
+#
+# df = pd.concat([df_na, df_sp, df_ny, df_am])
 # df = df.drop_duplicates(['Symbol'])
 # df = df.fillna('')
-
+#
 # for i in range(len(df)):
 #     s = Code_name(
 #         created_date=timezone.now(),
