@@ -16,7 +16,7 @@ import math
 import numpy as np
 import FinanceDataReader as fdr
 import time
-from multiprocessing import Process
+import random
 
 
 
@@ -59,6 +59,13 @@ def s_index(request):
 # def loading(request, stock_id):
 #     context = {'stock_id':stock_id}
 #     return render(request, 'stockpredapp/loading.html', context)
+
+def random_pred(request):
+    random_stock = random.randrange(1,15782)
+    stock = Code_name.objects.get(id=random_stock)
+    context = {'random_stock':random_stock,
+               'stock':stock}
+    return render(request, 'stockpredapp/random_pred.html', context)
 def main_loading(request):
     return render(request, 'stockpredapp/main_loading.html')
 def main_loading2(request):
@@ -146,9 +153,9 @@ def result(request, stock_id):
         testPredictPlot = Result[15]
         predPlot = Result[16]
         date = Result[17]
-        if result_min > dataset[-1]: # 예측값의 최소값이 실제데이터의 가장 최근 날짜보다 크면 매수
+        if result_min >= dataset[-1]: # 예측값의 최소값이 실제데이터의 가장 최근 날짜보다 크면 매수
             recommend = '매수'
-        elif result_min > dataset[-1]: # 예측값의 최소값이 실제데이터의 가장 최근 날짜보다 작으면 매도
+        elif result_min < dataset[-1]: # 예측값의 최소값이 실제데이터의 가장 최근 날짜보다 작으면 매도
             recommend = '매도'
 
 

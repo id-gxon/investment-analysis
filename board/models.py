@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 from django.urls import reverse
 
 
@@ -7,7 +7,7 @@ class Discussion(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_discussion')
     subject = models.CharField(max_length=200)
     content = models.TextField()
-    image = models.ImageField(null=True, blank=True, upload_to = "images/")
+    image = models.ImageField(null=True, blank=True, upload_to="images/")
     create_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(null=True, blank=True)
     voter = models.ManyToManyField(User)

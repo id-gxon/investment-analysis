@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from django.urls import reverse_lazy
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -91,11 +92,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# 로그인 성공후 이동하는 URL
+LOGIN_URL = reverse_lazy('common:login')
 LOGIN_REDIRECT_URL = '/'
-
-# 로그아웃시 이동하는 URL
 LOGOUT_REDIRECT_URL = '/'
-
-
-
