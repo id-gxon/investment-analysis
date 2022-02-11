@@ -3,11 +3,13 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from .models import Code_name
+
 from keras.models import Sequential
 from keras.layers import SimpleRNN, Dense
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
+
 from django.db.models import Q
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -63,11 +65,15 @@ def s_index(request):
 def random_pred(request):
     random_stock = random.randrange(1,15782)
     stock = Code_name.objects.get(id=random_stock)
+    market = Code_name.objects.get(id=random_stock).market
     context = {'random_stock':random_stock,
-               'stock':stock}
+               'stock':stock,
+               'market':market}
     return render(request, 'stockpredapp/random_pred.html', context)
+
 def main_loading(request):
     return render(request, 'stockpredapp/main_loading.html')
+
 def main_loading2(request):
     return render(request, 'stockpredapp/main_loading2.html')
 
@@ -80,7 +86,6 @@ def jisu(request):
     kospi = fdr.DataReader(symbol='KS11', start=start, end=end).reset_index()  # 코스피 1년 데이터 클롤링
     kospi = kospi.loc[:, 'Close'] # 종가 데이터 추출
     kospi = list(kospi) # 리스트 변환
-
     kosdaq = fdr.DataReader(symbol='KQ11', start=start, end=end).reset_index()  # 코스닥 1년 데이터 크롤링
     date = kosdaq.loc[:, 'Date']  # 날짜 데이터 추출
     date = list(date)
@@ -88,18 +93,12 @@ def jisu(request):
         date[i] = date[i].strftime("%Y-%m-%d")
     kosdaq = kosdaq.loc[:, 'Close']  # 종가 데이터 추출
     kosdaq = list(kosdaq)  # 리스트 변환
-
     dows = fdr.DataReader(symbol='DJI', start=start, end=end).reset_index()  # 다우지수
     dows = dows.loc[:, 'Close'] # 종가 데이터 추출
     dows = list(dows)  # 리스트 변환
-
     nasdaq = fdr.DataReader(symbol='IXIC', start=start, end=end).reset_index()  # 나스닥지수
     nasdaq = nasdaq.loc[:, 'Close']  # 종가 데이터 추출
     nasdaq = list(nasdaq)  # 리스트 변환
-
-    # sp500 = fdr.DataReader(symbol='US500', start=start, end=end).reset_index()  # S&P 500
-    # sp500 = sp500.loc[:, 'Close']  # 종가 데이터 추출
-    # sp500 = list(sp500)  # 리스트 변환
 
     context = {'kospi':kospi,
                'kosdaq':kosdaq,
@@ -117,9 +116,11 @@ def jisu(request):
 def loading(request, stock_id):
     stock = Code_name.objects.get(id=stock_id)
     name = Code_name.objects.get(id=stock_id).stock_name
+    market = Code_name.objects.get(id=stock_id).market
     context = {'stock':stock,
                'stock_id':stock_id,
-               'name':name}
+               'name':name,
+               'market':market}
     return render(request, 'stockpredapp/loading.html', context)
 
 def result(request, stock_id):
@@ -205,7 +206,6 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     date.append('d+5')
     date.append('d+6')
     date.append('d+7')
-
 
     dataset = df['Close'].values  # 종가 데이터 추출
     dataset = dataset.reshape(dataset.shape[0], 1)  # 1차원배열을 2차원으로 변경
