@@ -46,6 +46,10 @@ def discussion_modify(request, discussion_id):
         if form.is_valid():
             discussion = form.save(commit=False)
             discussion.modify_date = timezone.now()
+            try:
+                discussion.image = request.FILES['image']
+            except:
+                discussion.image = None
             discussion.save()
             return redirect('board:detail', discussion_id=discussion.id)
     else:
