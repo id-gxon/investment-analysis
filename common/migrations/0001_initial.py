@@ -35,7 +35,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nickname', models.CharField(max_length=20)),
-                ('email', models.EmailField(max_length=255)),
                 ('stock_firm', models.CharField(choices=[('KIWOOM', '키움증권'), ('SAMSUNG', '삼성증권'), ('KOREA', '한국투자증권'), ('KOOKMIN', 'KB증권'), ('NONGHYUP', 'NH투자증권'), ('MIREA', '미래에셋증권'), ('SHINHAN', '신한금융투자'), ('ETC', '그 외')], max_length=10)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],

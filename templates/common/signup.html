@@ -9,11 +9,11 @@
             <span>이미 계정이 있으신가요? <a href="{% url 'common:login' %}">Log in</a></span>
         </div>
     </div>
-    <form method="post" class="post-form" action="{% url 'common:signup' %}">
+    <form method="post" class="post-form" action="{% url 'common:signup' %}" >
         {% csrf_token %}
         {% include "form_errors.html" %}
         <div class="form-group">
-            <label for="username" class="form-label mt-4">ID</label>
+            <label for="username" class="form-label mt-4">Username</label>
             <input type="text" class="form-control" name="username" id="username" placeholder="Username"
                    value="{{ form.username.value|default_if_none:'' }}">
         </div>
@@ -24,6 +24,11 @@
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
+            <label for="nickname" class="form-label mt-4">Nickname</label>
+            <input type="text" class="form-control" name="nickname" id="nickname" placeholder="Nickname"
+                   value="{{ form.nickname.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
             <label for="password1" class="form-label mt-4">Password</label>
             <input type="password" class="form-control" name="password1" id="password1" placeholder="Password">
         </div>
@@ -32,8 +37,16 @@
             <input type="password" class="form-control" name="password2" id="password2" placeholder="Password">
         </div>
         <div class="form-group">
-            <label for="stockfirm" class="form-label mt-4">stockfirm</label>
-            <input type="text" class="form-control" name="stockfirm" id="stockfirm" placeholder="Ex) KB금융">
+            <label for="stock_firm" class="form-label mt-4">증권사</label>
+            <select class="form-select" id="stock_firm" name="stock_firm">
+                <option>키움증권</option>
+                <option>삼성증권</option>
+                <option>한국투자증권</option>
+                <option>KB증권</option>
+                <option>미래에셋증권</option>
+                <option>신한금융투자</option>
+                <option>그 외</option>
+            </select>
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Sign up</button>

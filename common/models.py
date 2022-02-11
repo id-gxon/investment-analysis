@@ -4,9 +4,9 @@ from django.db.models.signals import post_save
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    username = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=20)
-    email = models.EmailField(max_length=255)
+    USERNAME_FIELD = 'test'
     STOCK_FIRM_CHOICE = (
         ('KIWOOM', '키움증권'),
         ('SAMSUNG', '삼성증권'),

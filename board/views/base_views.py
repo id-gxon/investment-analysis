@@ -15,7 +15,6 @@ def index(request):
     kw = request.GET.get('kw', '') # 검색어
     so = request.GET.get('so', 'recent')
 
-
     if so == 'recommend':
         discussion_list = Discussion.objects.annotate(num_voter=Count('voter')).order_by('-num_voter', '-create_date')
     elif so == 'popular':

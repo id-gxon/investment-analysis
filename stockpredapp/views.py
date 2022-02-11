@@ -19,9 +19,7 @@ import time
 import random
 
 
-
 epochs = 100  # 학습반복수
-
 
 
 def s_index(request):
@@ -60,16 +58,22 @@ def s_index(request):
 #     context = {'stock_id':stock_id}
 #     return render(request, 'stockpredapp/loading.html', context)
 
+
 def random_pred(request):
     random_stock = random.randrange(1,15782)
     stock = Code_name.objects.get(id=random_stock)
     context = {'random_stock':random_stock,
                'stock':stock}
     return render(request, 'stockpredapp/random_pred.html', context)
+
+
 def main_loading(request):
     return render(request, 'stockpredapp/main_loading.html')
+
+
 def main_loading2(request):
     return render(request, 'stockpredapp/main_loading2.html')
+
 
 def jisu(request):
     end = datetime.today() # 오늘 날짜
@@ -113,7 +117,6 @@ def jisu(request):
     return render(request, 'stockpredapp/jisu.html', context)
 
 
-
 def loading(request, stock_id):
     stock = Code_name.objects.get(id=stock_id)
     name = Code_name.objects.get(id=stock_id).stock_name
@@ -121,6 +124,7 @@ def loading(request, stock_id):
                'stock_id':stock_id,
                'name':name}
     return render(request, 'stockpredapp/loading.html', context)
+
 
 def result(request, stock_id):
     '''
@@ -157,7 +161,6 @@ def result(request, stock_id):
             recommend = '매수'
         elif result_min < dataset[-1]: # 예측값의 최소값이 실제데이터의 가장 최근 날짜보다 작으면 매도
             recommend = '매도'
-
 
         context = {'stock': stock,  # 분석결과 페이지에 보낼 데이터 정리
                    'result': result,
@@ -205,7 +208,6 @@ def rnn(code, start, end):  # 순환신경망(RNN)분석 함수
     date.append('d+5')
     date.append('d+6')
     date.append('d+7')
-
 
     dataset = df['Close'].values  # 종가 데이터 추출
     dataset = dataset.reshape(dataset.shape[0], 1)  # 1차원배열을 2차원으로 변경
