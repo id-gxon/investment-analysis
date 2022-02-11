@@ -1,8 +1,9 @@
 from django.conf import settings
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from .forms import SignupForm
+from .forms import SignUpForm
 from .models import Profile
 
 
@@ -14,15 +15,18 @@ def profile(request):
 
 
 def signup(request):
-    print('test1')
     if request.method == 'POST':
-        form = SignupForm(request.POST)
-        print('test4')
+        form = SignUpForm(request.POST)
         if form.is_valid():
-            print('test2')
-            form.save()
+            user = form.save()
+            user.refresh_from_db()
+            user.profile.nickname = form.cleaned_data.get('nickname')
+            user.profile.stock_firm = form.cleaned_data.get('stock_firm')
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
             return redirect(settings.LOGIN_URL)
     else:
-        print('test3')
-        form = SignupForm()
+        form = SignUpForm()
     return render(request, 'common/signup.html', {'form': form})

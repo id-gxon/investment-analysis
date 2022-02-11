@@ -1,22 +1,23 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
-from common.models import Profile
 
-
-class SignupForm(UserCreationForm):
-
+class SignUpForm(UserCreationForm):
+    nickname = forms.CharField(max_length=20)
     email = forms.EmailField(label="이메일")
+    STOCK_FIRM_CHOICE = (
+        ('키움증권', 'KIWOOM'),
+        ('삼성증권', 'SAMSUNG'),
+        ('한국투자증권', 'KOREA'),
+        ('KB증권', 'KOOKMIN'),
+        ('NH투자증권', 'NONGHYUP'),
+        ('미래에셋증권', 'MIREA'),
+        ('신한금융투자', 'SHINHAN'),
+        ('그 외', 'ETC')
+    )
+    stock_firm = forms.ChoiceField(choices=STOCK_FIRM_CHOICE)
 
     class Meta:
-        model = Profile  # 사용할 모델
-        fields = ['username', 'email', 'nickname', 'password1', 'password2', 'stock_firm']
-#
-#
-# class SignupForm(UserCreationForm):
-#    email = forms.EmailField(label="이메일")
-#          def save(self):
-#              user = super().save()
-#              profile = Profile.objects.create(
-#              user=user,phone_number=self.cleaned_data['phone_number'])
-#              return user
+        model = User
+        fields = ('username', 'nickname', 'email', 'password1', 'password2', 'stock_firm')

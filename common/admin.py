@@ -6,4 +6,4 @@ from .models import Profile
 # Register your models here.
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['username', 'nickname', 'stock_firm']
+    list_display = ['user', 'nickname', 'stock_firm']
