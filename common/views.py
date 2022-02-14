@@ -40,6 +40,7 @@ def profile_update(request):
     """
     profile 수정
     """
+    form = SignUpForm(request.POST)
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -50,7 +51,8 @@ def profile_update(request):
             return redirect('common:profile')
         else:
             form = SignUpForm()
-        return render(request, 'common/profile.html', {'form': form})
+
+    return render(request, 'common/profile_update.html', {'form': form})
 
 
 @login_required(login_url='common:login')
