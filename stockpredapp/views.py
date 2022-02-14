@@ -89,22 +89,32 @@ def jisu(request):
     kospi = kospi.loc[:, 'Close'] # 종가 데이터 추출
     kospi = list(kospi) # 리스트 변환
     kosdaq = fdr.DataReader(symbol='KQ11', start=start, end=end).reset_index()  # 코스닥 1년 데이터 크롤링
-    date = kosdaq.loc[:, 'Date']  # 날짜 데이터 추출
-    date = list(date)
-    for i in range(len(date)):  # datetime -> str 변환
-        date[i] = date[i].strftime("%Y-%m-%d")
+
+    date_kor = kosdaq.loc[:, 'Date']  # 날짜 데이터 추출
+    date_kor = list(date_kor)
+    for i in range(len(date_kor)):  # datetime -> str 변환
+        date_kor[i] = date_kor[i].strftime("%Y-%m-%d")
+
     kosdaq = kosdaq.loc[:, 'Close']  # 종가 데이터 추출
     kosdaq = list(kosdaq)  # 리스트 변환
     dows = fdr.DataReader(symbol='DJI', start=start, end=end).reset_index()  # 다우지수
     dows = dows.loc[:, 'Close'] # 종가 데이터 추출
     dows = list(dows)  # 리스트 변환
+
     nasdaq = fdr.DataReader(symbol='IXIC', start=start, end=end).reset_index()  # 나스닥지수
+
+    date_usa = nasdaq.loc[:, 'Date']  # 날짜 데이터 추출
+    date_usa = list(date_usa)
+    for i in range(len(date_usa)):  # datetime -> str 변환
+        date_usa[i] = date_usa[i].strftime("%Y-%m-%d")
+
     nasdaq = nasdaq.loc[:, 'Close']  # 종가 데이터 추출
     nasdaq = list(nasdaq)  # 리스트 변환
 
     context = {'kospi':kospi,
                'kosdaq':kosdaq,
-               'date':date,
+               'date_kor':date_kor,
+               'date_usa':date_usa,
                'start':start,
                'end':end,
                'dows':dows,
