@@ -16,10 +16,6 @@
         <p>
         <div><strong>증권사</strong></div>
         {{ user.profile.stock_firm|default:"&dash;" }}
-        <p>
-        <div class="my-3">
-            <a href="{% url 'common:profile_update' %}" class="btn btn-sm btn-outline-secondary">수정하기</a>
-            <a href="#" class="delete btn btn-sm btn-outline-secondary" data-uri="{% url 'common:profile_delete' %}">삭제하기</a>
-        </div>
+    </div>
 </div>
 {% endblock %}

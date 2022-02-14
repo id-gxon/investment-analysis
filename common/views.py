@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 
-from .forms import SignUpForm
+from .forms import SignUpForm, UpdateForm
 from .models import Profile
 
 
@@ -40,18 +40,20 @@ def profile_update(request):
     """
     profile 수정
     """
-    form = SignUpForm(request.POST)
+    print(request.method)
+    # test = get_object_or_404(Profile, pk=1)
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        print("test1")
+        form = UpdateForm(request.POST)
         if form.is_valid():
-            user = request.user
+            print("test2")
+            user = form.save()
             user.profile.nickname = form.cleaned_data('nickname')
             user.profile.stock_firm = form.cleaned_data('stock_firm')
-            user.save()
             return redirect('common:profile')
-        else:
-            form = SignUpForm()
-
+    else:
+        form = UpdateForm()
+        print("test3")
     return render(request, 'common/profile_update.html', {'form': form})
 
 
