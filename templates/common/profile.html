@@ -1,20 +1,25 @@
-{% extends 'layout.html' %}
-
+{% extends "base.html" %}
 {% block content %}
-
-<h2>{{ user.username }}'s Profile</h2>
-<a href="{% url 'common:password_change' %}">암호 변경</a>
-<h3>Email</h3>
-{{ user.email|default:"&dash;" }}
-<h3>nickname</h3>
-{{ user.profile.nickname|default:"&dash;" }}
-
-{% if profilelist %}
-    <ul>
-        {% for person in profilelist %}
-            <li> {{ person.nickname}}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
+<div class="container my-3">
+    <div class="row my-3">
+        <div class="col-4">
+            <h4>{{ user.username }}'s Profile</h4>
+        </div>
+        <p>
+        <div><a href="{% url 'common:password_change' %}">암호 변경</a></div>
+        <p>
+        <div>Email</div>
+        {{ user.email|default:"&dash;" }}
+        <p>
+        <div>nickname</div>
+        {{ user.profile.nickname|default:"&dash;" }}
+        <p>
+        <div>stock_firm</div>
+        {{ user.profile.stock_firm|default:"&dash;" }}
+        <p>
+        <div class="my-3">
+            <a href="{% url 'common:profile_update' %}" class="btn btn-sm btn-outline-secondary">수정하기</a>
+            <a href="#" class="delete btn btn-sm btn-outline-secondary" data-uri="{% url 'common:profile_delete' %}">삭제하기</a>
+        </div>
+</div>
 {% endblock %}

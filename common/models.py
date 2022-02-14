@@ -1,12 +1,35 @@
 from django.contrib.auth.models import User
+from django.core import validators
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.deconstruct import deconstructible
+from django.utils.translation import gettext_lazy as _
+
+
+@deconstructible
+class UnicodeNicknameValidator(validators.RegexValidator):
+    regex = r'^[\w.@+-]+\Z'
+    message = _(
+        'Enter a valid nickname. This value may contain only letters, '
+        'numbers, and @/./+/-/_ characters.'
+    )
+    flags = 0
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nickname = models.CharField(max_length=20, unique=True)
+    nickname_validator = UnicodeNicknameValidator()
+    nickname = models.CharField(
+        _('nickname'),
+        max_length=10,
+        unique=True,
+        help_text=_('Required. 10 characters or fewer. Letters, digits and @/./+/-/_ only.'),
+        validators=[nickname_validator],
+        error_messages={
+            'unique': _("A user with that nickname already exists."),
+        },
+    )
     STOCK_FIRM_CHOICE = (
         ('키움증권', 'KIWOOM'),
         ('삼성증권', 'SAMSUNG'),

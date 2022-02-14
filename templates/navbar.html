@@ -22,7 +22,11 @@
                 <a class="nav-link" href="{% url 'board:index' %}">토론방</a>
             </li>
             <li class="nav-item ">
+                {% if user.is_authenticated %}
                 <a class="nav-link" href="{% url 'common:profile' %}">내 정보 확인</a>
+                {% else %}
+                <a></a>
+                {% endif %}
             </li>
         </ul>
     </div>

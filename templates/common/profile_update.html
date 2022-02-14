@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %} 
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="email" class="form-label mt-4">Email address</label>
+            <input type="text" class="form-control" name="email" id="email" placeholder="Enter email"
+                    value="{{ form.email.value|default_if_none:'' }}">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="nickname" class="form-label mt-4">Nickname</label>
+            <input type="text" class="form-control" name="nickname" id="nickname" placeholder="Nickname"
+                   value="{{ form.nickname.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="stock_firm" class="form-label mt-4">증권사</label>
+            <select class="form-select" id="stock_firm" name="stock_firm">
+                <option>키움증권</option>
+                <option>삼성증권</option>
+                <option>한국투자증권</option>
+                <option>KB증권</option>
+                <option>미래에셋증권</option>
+                <option>신한금융투자</option>
+                <option>그 외</option>
+            </select>
+        </div>
+        <button class="btn btn-primary">수정</button>
+    </form>
+{% endblock %}
