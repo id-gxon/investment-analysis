@@ -3,18 +3,18 @@
 <div class="container my-3">
     <div class="row my-3">
         <div class="col-4">
-            <h4>{{ user.username }}'s Profile</h4>
+            <h2>{{ user.username }}'s Profile</h2>
         </div>
         <p>
-        <div><a href="{% url 'common:password_change' %}">암호 변경</a></div>
+        <div><a href="{% url 'common:password_change' %}">비밀번호 변경</a></div>
         <p>
-        <div>Email</div>
+        <div><strong>Email</strong></div>
         {{ user.email|default:"&dash;" }}
         <p>
-        <div>nickname</div>
+        <div><strong>Nickname</strong></div>
         {{ user.profile.nickname|default:"&dash;" }}
         <p>
-        <div>stock_firm</div>
+        <div><strong>증권사</strong></div>
         {{ user.profile.stock_firm|default:"&dash;" }}
         <p>
         <div class="my-3">
