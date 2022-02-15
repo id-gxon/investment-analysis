@@ -11,14 +11,15 @@ def index(request):
     Discussion_list 출력
     """
     # 입력 파라미터
-    page = request.GET.get('page', '1') # 페이지
-    kw = request.GET.get('kw', '') # 검색어
+    page = request.GET.get('page', '1')  # 페이지
+    kw = request.GET.get('kw', '')  # 검색어
     so = request.GET.get('so', 'recent')
 
     if so == 'recommend':
         discussion_list = Discussion.objects.annotate(num_voter=Count('voter')).order_by('-num_voter', '-create_date')
     elif so == 'popular':
-        discussion_list = Discussion.objects.annotate(num_answer=Count('answer')).order_by('-num_answer', '-create_date')
+        discussion_list = Discussion.objects.annotate(num_answer=Count('answer')).order_by('-num_answer',
+                                                                                           '-create_date')
     elif so == 'cntview':
         discussion_list = Discussion.objects.order_by('-view_count', '-create_date')
     else:  # recent

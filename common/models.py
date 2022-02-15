@@ -23,7 +23,7 @@ class Profile(models.Model):
     nickname = models.CharField(
         _('nickname'),
         max_length=10,
-        unique=True,
+        unique=False,
         help_text=_('Required. 10 characters or fewer. Letters, digits and @/./+/-/_ only.'),
         validators=[nickname_validator],
         error_messages={
