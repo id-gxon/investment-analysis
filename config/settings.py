@@ -8,7 +8,7 @@ SECRET_KEY = 'django-insecure--8b9d+415#r6ty%$f8#09js3z5228)cp2^l)w!%@@hmr1i265y
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['52.78.160.132']
 
 INSTALLED_APPS = [
     'stockpredapp.apps.StockpredappConfig',
