@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize%}
 <!--{% load static %}-->
 <!--<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">-->
 {% block content %}
@@ -149,11 +150,11 @@
         <tbody>
         <tr>
             <td title="7일간 예측된 데이터의 최댓값입니다">예측 최대값(원)</td>
-            <td title="7일간 예측된 데이터의 최댓값입니다">{{ result_max }}</td>
+            <td title="7일간 예측된 데이터의 최댓값입니다">{{ result_max|intcomma }}</td>
         </tr>
         <tr>
             <td title="7일간 예측된 데이터의 최솟값입니다">예측 최소값(원)</td>
-            <td title="7일간 예측된 데이터의 최솟값입니다">{{ result_min }}</td>
+            <td title="7일간 예측된 데이터의 최솟값입니다">{{ result_min|intcomma }}</td>
         </tr>
         <tr>
             <td title="학습에 사용된 데이터의 평균제곱근편차입니다.">학습 데이터의
@@ -194,13 +195,13 @@
         </thead>
         <tbody>
         <tr>
-            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d1 }}원</td>
-            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d2 }}원</td>
-            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d3 }}원</td>
-            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d4 }}원</td>
-            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d5 }}원</td>
-            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d6 }}원</td>
-            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d7 }}원</td>
+            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d1|intcomma }}원</td>
+            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d2|intcomma }}원</td>
+            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d3|intcomma }}원</td>
+            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d4|intcomma }}원</td>
+            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d5|intcomma }}원</td>
+            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d6|intcomma }}원</td>
+            <td title="예측된 {{ stock }} 주가입니다.">{{ result_d7|intcomma }}원</td>
         </tr>
         </tbody>
     </table>
